@@ -147,42 +147,103 @@ Priorities
 ** Org Modern
 Disable things
 #+begin_src emacs-lisp
-(setq org-modern-checkbox nil)
+(after! org-modern
+  (setq org-modern-checkbox nil
+        org-modern-block-name nil
+        org-modern-keyword nil))
 #+end_src
 
 ** Prettify Symbols
+https://red.artemislena.eu/r/emacs/comments/o04it0/share_your_prettifysymbolsalist/
 #+begin_src emacs-lisp
-(setq prettify-symbols-alist
-      '(
-        ;; Checkboxes
-        ("[ ]" . ?)
-        ("[X]" . ?)
-        ("[x]" . ?)
-        ("[-]" . ?)
+(add-hook
+ 'org-mode-hook
+ (lambda ()
+   (setq prettify-symbols-alist
+         '(
+           ;; Checkboxes
+           ("[ ]" . ?)
+           ("[X]" . ?)
+           ("[x]" . ?)
+           ("[-]" . ?)
 
-        ;; statuses and notes
-        ("Note taken on" . ?󰎜)
-        ("       from " . ?)
-        ("\"TODO\"      " . ?)
-        ("State \"TODO\"" . ?)
-        ("\"DONE\"      " . ?)
-        ("State \"DONE\"" . ?)
-        ("State \"KILL\"" . ?󰜺)
-        ("\"KILL\"      " . ?󰜺)
-        ("\"WAIT\"      " . ?)
-        ("State \"WAIT\"" . ?)
-        ("\"INT\"       " . ?)
-        ("State \"INT\" " . ?)
-        ("\"NEXT\"      " . ?󰙢)
-        ("State \"NEXT\"" . ?󰙢)
-        ("\"WIP\"       " . ?󰒡)
-        ("State \"WIP\" " . ?󰒡)
-        ("\"PROG\"      " . ?)
-        ("State \"PROG\"" . ?)
-        ("\"DELE\"      " . ?)
-        ("State \"DELE\"" . ?)
-        ("\"CHCK\"      " . ?󰄭)
-        ("State \"CHCK\"" . ?󰄭)))
+           ;; Props, metadata and blocks
+           ("#+AUTHOR" .          ?)
+           ("#+AUTO_TANGLE" .     ?)
+           ("#+BEGIN_QUOTE" .     ?)
+           ("#+BEGIN_SRC" .       ?)
+           ("#+END_QUOTE" .       ?)
+           ("#+END_SRC" .         ?)
+           ("#+FILETAGS" .        ?󰓹)
+           ("#+HTML_HEAD" .       ?)
+           ("#+NAME" .            ?󰫧)
+           ("#+OPTIONS" .         ?)
+           ("#+PROPERTY" .        ?)
+           ("#+RESULTS:" .        ?)
+           ("#+STARTUP" .         ?)
+           ("#+TITLE" .           ?󰗴)
+           ("#+author" .          ?)
+           ("#+auto_tangle" .     ?)
+           ("#+begin_example" .   ?󰝓)
+           ("#+begin_export" .    ?󰛂)
+           ("#+begin_quote" .     ?)
+           ("#+begin_src" .       ?)
+           ("#+end_example" .     ?󰝕)
+           ("#+end_export" .      ?󰛁)
+           ("#+end_quote" .       ?)
+           ("#+end_src" .         ?)
+           ("#+filetags" .        ?󰓹)
+           ("#+html_head" .       ?)
+           ("#+name" .            ?󰫧)
+           ("#+options" .         ?)
+           ("#+property" .        ?)
+           ("#+startup" .         ?)
+           ("#+title" .           ?󰗴)
+           (":EFFORT:" .          ?󱤥)
+           (":END:" .             ?󱞿)
+           (":Effort:" .          ?󱤥)
+           (":ID:" .              ?󰻾)
+           (":LAST_REPEAT:" .     ?)
+           (":LOGBOOK:" .         ?󱃕)
+           (":NOTER_PAGE:" .      ?󱗖)
+           (":PROPERTIES:" .      ?)
+           (":REPEAT_TO_STATE:" . ?)
+           (":ROAM_ALIASES:" .    ?󰑕)
+           (":ROAM_NAME:" .       ?󰗴)
+           (":ROAM_REFS:" .       ?)
+           (":STYLE:" .           ?)
+           (":VISIBILITY:" .      ?)
+           ("CLOCK:" .            ?󰥔)
+           ("CLOSED:" .           ?)
+           ("DEADLINE:" .         ?󰀡)
+           ("SCHEDULED:" .        ?󰁫)
+
+           ;; statuses and notes
+           ("Note taken on" .  ?󰎜)
+           ("       from " .   ?)
+           ("\"TODO\"      " . ?)
+           ("State \"TODO\"" . ?)
+           ("\"DONE\"      " . ?)
+           ("State \"DONE\"" . ?)
+           ("State \"KILL\"" . ?󰜺)
+           ("\"KILL\"      " . ?󰜺)
+           ("\"WAIT\"      " . ?)
+           ("State \"WAIT\"" . ?)
+           ("\"INT\"       " . ?)
+           ("State \"INT\" " . ?)
+           ("\"NEXT\"      " . ?󰙢)
+           ("State \"NEXT\"" . ?󰙢)
+           ("\"WIP\"       " . ?󰒡)
+           ("State \"WIP\" " . ?󰒡)
+           ("\"PROG\"      " . ?)
+           ("State \"PROG\"" . ?)
+           ("\"DELE\"      " . ?)
+           ("State \"DELE\"" . ?)
+           ("\"CHCK\"      " . ?󰄭)
+           ("State \"CHCK\"" . ?󰄭)
+           ("\\\\" .           ?)
+           (" \\\\" .          ?)))
+   (prettify-symbols-mode)))
 #+end_src
 
 
