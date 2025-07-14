@@ -272,5 +272,6 @@ Obfuscate user agent
    lsp-modeline-diagnostics-enable t
    lsp-lens-enable t
    lsp-semantic-tokens-enable t
-   lsp-headerline-breadcrumb-enable t))
+   lsp-headerline-breadcrumb-enable t
+   lsp-eslint-format t))
 #+end_src

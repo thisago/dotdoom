@@ -80,7 +80,6 @@
 (package! shrface :recipe (:host github :repo "chenyanming/shrface"))
 (package! all-the-icons)
 (package! tidal) ;; https://tidalcycles.org/docs/getting-started/editor/Emacs/#using-doom-emacs
-(package! eslintd-fix)
 (package! ob-mermaid)
 (package! mermaid-mode)
 (package! org-auto-tangle)
