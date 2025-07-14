@@ -1,11 +1,5 @@
 #+title: Emacs Config
 
-* Meta
-#+begin_src emacs-lisp
-;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
-#+end_src
-
-
 * Appearance
 ** Theme
 #+begin_src emacs-lisp
@@ -48,4 +42,12 @@ Show headline numbers:
 Disable editing source code in dedicated buffer
 #+begin_src emacs-lisp
 (defun org-edit-src-code nil)
+#+end_src
+
+** Roam
+#+begin_src emacs-lisp
+(after! org-roam
+  (setq
+   org-roam-directory (file-truename "~/org/")
+   org-roam-dailies-directory "braindump/journal/"))
 #+end_src
