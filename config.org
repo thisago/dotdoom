@@ -1,1 +1,51 @@
 #+title: Emacs Config
+
+* Meta
+#+begin_src emacs-lisp
+;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
+#+end_src
+
+
+* Appearance
+** Theme
+#+begin_src emacs-lisp
+(setq doom-theme 'doom-ir-black)
+#+end_src
+** Line Numbers
+#+begin_src emacs-lisp
+(setq display-line-numbers-type 'relative)
+#+end_src
+
+
+* Org Mode
+#+begin_src emacs-lisp
+(setq org-directory "~/org/")
+#+end_src
+** Visuals
+#+begin_src emacs-lisp
+(setq org-adapt-indentation t
+      org-hide-leading-stars t
+      org-pretty-entities t
+      org-ellipsis " 󱞣"
+      org-use-sub-superscripts "{}")
+#+end_src
+** Editing
+#+begin_src emacs-lisp
+(setq org-support-shift-select t)
+#+end_src
+** Headlines
+Next and previous headlines, see https://github.com/jethrokuan/dots/blob/master/.doom.d/config.el
+#+begin_src emacs-lisp
+(map! :map org-mode-map
+      "M-n" #'outline-next-visible-heading
+      "M-p" #'outline-previous-visible-heading)
+#+end_src
+Show headline numbers:
+#+begin_src emacs-lisp
+(add-hook 'org-mode-hook #'org-num-mode)
+#+end_src
+** Source Blocks
+Disable editing source code in dedicated buffer
+#+begin_src emacs-lisp
+(defun org-edit-src-code nil)
+#+end_src
