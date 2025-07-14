@@ -1,6 +1,12 @@
 #+title: Emacs Config
 #+startup: content
 
+* Meta
+#+begin_src emacs-lisp
+;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
+#+end_src
+
+
 * Appearance
 ** Theme
 #+begin_src emacs-lisp
@@ -13,6 +19,7 @@
 
 
 * Org Mode
+** General Settings
 #+begin_src emacs-lisp
 (setq org-directory "~/org/")
 #+end_src
@@ -45,10 +52,62 @@ Disable editing source code in dedicated buffer
 (defun org-edit-src-code nil)
 #+end_src
 
+** Tasks
+Keywords
+#+begin_src emacs-lisp
+(setq org-todo-keywords
+      '((sequence "TODO(t@/!)" "NEXT(n!)" "PROG(p@/!)" "CHCK(c@/!)" "|" "DONE(d@/!)" "KILL(k@/!)" "DELE(D@/!)")
+        (sequence "WIP(W@/!)" "WAIT(w@/!)" "INT(i@/!)")))
+#+end_src
+Priorities
+#+begin_src emacs-lisp
+(setq org-lowest-priority ?D)
+(setq org-default-priority ?D)
+
+(setq org-priority-faces
+      '((?A . "red")
+        (?B . "darkorange")
+        (?C . "yellow")
+        (?D . "grey")))
+#+end_src
 ** Roam
+*** Settings
 #+begin_src emacs-lisp
 (after! org-roam
   (setq
    org-roam-directory (file-truename "~/org/")
-   org-roam-dailies-directory "braindump/journal/"))
+   org-roam-dailies-directory "braindump/journal/"
+   org-roam-db-autosync-mode t))
+#+end_src
+
+*** Agenda Integration
+#+begin_src emacs-lisp
+(after! org-roam
+  (defun my/org-roam-filter-by-tag (tag-name)
+    (lambda (node)
+      (member tag-name (org-roam-node-tags node))))
+  (defun my/org-roam-list-notes-by-tag (tag-name)
+    (mapcar #'org-roam-node-file
+            (seq-filter
+             (my/org-roam-filter-by-tag tag-name)
+             (org-roam-node-list))))
+  (defun my/org-roam-refresh-agenda-list ()
+    (interactive)
+    (setq org-agenda-files
+          (cl-delete-duplicates
+           (my/org-roam-list-notes-by-tag "orgagenda")
+           :test #'string-equal)))
+
+  ;; Build the agenda list the first time for the session
+  (my/org-roam-refresh-agenda-list))
+#+end_src
+
+
+* Privacy
+** Url Lib
+Obfuscate user agent
+#+begin_src emacs-lisp
+(setq
+ url-user-agent "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3"
+ url-privacy-level 'high)
 #+end_src
