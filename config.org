@@ -23,7 +23,8 @@
       org-hide-leading-stars t
       org-pretty-entities t
       org-ellipsis " 󱞣"
-      org-use-sub-superscripts "{}")
+      org-use-sub-superscripts "{}"
+      +org-pretty-mode t)
 #+end_src
 ** Editing
 #+begin_src emacs-lisp
