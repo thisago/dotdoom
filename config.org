@@ -15,7 +15,9 @@
 * Org Mode
 ** General Settings
 #+begin_src emacs-lisp
-(setq org-directory "~/org/")
+(setq
+ org-directory "~/org/"
+ org-archive-location "~/Documents/repos/archive/global.org_archive::datetree/* From %s")
 #+end_src
 ** Visuals
 #+begin_src emacs-lisp
