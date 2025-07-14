@@ -329,3 +329,15 @@ Obfuscate user agent
    lsp-headerline-breadcrumb-enable t
    lsp-eslint-format t))
 #+end_src
+
+
+* EWW
+#+begin_src emacs-lisp
+(define-key global-map (kbd "C-c e") 'eww)
+#+end_src
+
+
+* Spell checking
+#+begin_src emacs-lisp
+(define-key global-map (kbd "C-c d") 'ispell-change-dictionary)
+#+end_src
