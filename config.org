@@ -212,6 +212,19 @@ https://github.com/doomemacs/doomemacs/commit/816db4a62addf7ac5e658123ba081069d2
         "<M-right>" #'drag-stuff-right))
 #+end_src
 
+
+* Fold
+#+begin_src emacs-lisp
+(evil-define-key* 'motion 'global
+  "zv" #'hs-hide-level
+  "zf" #'evil-vimish-fold/create
+  "zF" #'evil-vimish-fold/create-line
+  "zd" #'vimish-fold-delete
+  "zA" #'vimish-fold-toggle-all
+  "zE" #'vimish-fold-delete-all)
+#+end_src
+
+
 * Search
 ** Isearch
 #+begin_src emacs-lisp
