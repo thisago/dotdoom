@@ -192,7 +192,7 @@ Obfuscate user agent
   (add-to-list 'copilot-indentation-alist '(text-mode 2)))
 #+end_src
 
-*** Slack Client
+** Slack Client
 #+begin_src emacs-lisp
 (use-package! emacs-slack
   :bind (("C-c S K" . slack-stop)
@@ -235,8 +235,18 @@ Obfuscate user agent
   (setq alert-default-style 'notifier))
 #+end_src
 
-
 ** End of work config
 #+begin_src emacs-lisp :exports none
 )
+#+end_src
+
+
+* LSP
+#+begin_src emacs-lisp
+(setq
+ lsp-modeline-code-actions-enable t
+ lsp-modeline-diagnostics-enable t
+ lsp-lens-enable t
+ lsp-semantic-tokens-enable t
+ lsp-headerline-breadcrumb-enable t)
 #+end_src
