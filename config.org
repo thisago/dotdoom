@@ -115,6 +115,14 @@ Priorities
 #+end_src
 
 
+* Evil
+** Keybinds
+#+begin_src emacs-lisp
+(after! evil
+  (define-key evil-motion-state-map (kbd "C-e") 'doom/forward-to-last-non-comment-or-eol))
+#+end_src
+
+
 * Privacy
 ** Url Lib
 Obfuscate user agent
