@@ -1,4 +1,4 @@
-#+title: Emacs Config
+#+title: Doom Emacs Config
 #+startup: content
 
 * Appearance
