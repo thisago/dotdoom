@@ -82,10 +82,10 @@ Priorities
 (setq org-default-priority ?D)
 
 (setq org-priority-faces
-      '((?A . "red")
-        (?B . "darkorange")
-        (?C . "yellow")
-        (?D . "grey")))
+      '((?A . error)      ;; Highest priority: red, stands out, used for errors
+        (?B . warning)    ;; Medium-high: yellow/orange, used for warnings
+        (?C . success)    ;; Medium-low: green, used for success/info
+        (?D . shadow)))   ;; Lowest: shadow, de-emphasized, greyed out
 #+end_src
 
 ** Roam
