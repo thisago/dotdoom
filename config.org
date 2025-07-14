@@ -139,11 +139,6 @@ Priorities
 (add-hook 'org-mode-hook 'org-auto-tangle-mode)
 #+end_src
 
-** End of Org Config
-#+begin_src emacs-lisp
-) ;; End of (after! org)
-#+end_src
-
 ** Org Modern
 Disable things
 #+begin_src emacs-lisp
@@ -244,6 +239,11 @@ https://red.artemislena.eu/r/emacs/comments/o04it0/share_your_prettifysymbolsali
            ("\\\\" .           ?)
            (" \\\\" .          ?)))
    (prettify-symbols-mode)))
+#+end_src
+
+** End of Org Config
+#+begin_src emacs-lisp
+) ;; End of (after! org)
 #+end_src
 
 
