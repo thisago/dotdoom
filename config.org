@@ -63,12 +63,6 @@ Show headline numbers:
 (add-hook 'org-mode-hook #'org-num-mode)
 #+end_src
 
-** Source Blocks :ARCHIVE:
-Disable editing source code in dedicated buffer
-#+begin_src emacs-lisp
-(defun org-edit-src-code nil)
-#+end_src
-
 ** Tasks
 Keywords
 #+begin_src emacs-lisp
@@ -190,6 +184,7 @@ Disable things
         ("\"CHCK\"      " . ?󰄭)
         ("State \"CHCK\"" . ?󰄭)))
 #+end_src
+
 
 * Evil
 ** Keybinds
