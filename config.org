@@ -150,6 +150,46 @@ Priorities
 ) ;; End of (after! org)
 #+end_src
 
+** Org Modern
+Disable things
+#+begin_src emacs-lisp
+(setq org-modern-checkbox nil)
+#+end_src
+
+** Prettify Symbols
+#+begin_src emacs-lisp
+(setq prettify-symbols-alist
+      '(
+        ;; Checkboxes
+        ("[ ]" . ?)
+        ("[X]" . ?)
+        ("[x]" . ?)
+        ("[-]" . ?)
+
+        ;; statuses and notes
+        ("Note taken on" . ?󰎜)
+        ("       from " . ?)
+        ("\"TODO\"      " . ?)
+        ("State \"TODO\"" . ?)
+        ("\"DONE\"      " . ?)
+        ("State \"DONE\"" . ?)
+        ("State \"KILL\"" . ?󰜺)
+        ("\"KILL\"      " . ?󰜺)
+        ("\"WAIT\"      " . ?)
+        ("State \"WAIT\"" . ?)
+        ("\"INT\"       " . ?)
+        ("State \"INT\" " . ?)
+        ("\"NEXT\"      " . ?󰙢)
+        ("State \"NEXT\"" . ?󰙢)
+        ("\"WIP\"       " . ?󰒡)
+        ("State \"WIP\" " . ?󰒡)
+        ("\"PROG\"      " . ?)
+        ("State \"PROG\"" . ?)
+        ("\"DELE\"      " . ?)
+        ("State \"DELE\"" . ?)
+        ("\"CHCK\"      " . ?󰄭)
+        ("State \"CHCK\"" . ?󰄭)))
+#+end_src
 
 * Evil
 ** Keybinds
@@ -176,6 +216,12 @@ https://github.com/doomemacs/doomemacs/commit/816db4a62addf7ac5e658123ba081069d2
 ** Isearch
 #+begin_src emacs-lisp
 (define-key global-map (kbd "M-s") 'isearch-backward)
+#+end_src
+As =^S= is the same escape key code for =C-s= and =C-S=, we use =M-s= to search backwards.
+#+begin_src emacs-lisp
+(after! isearch
+  (define-key isearch-mode-map (kbd "M-s") #'isearch-repeat-backward)
+  (define-key isearch-mode-map (kbd "M-S") #'isearch-repeat-forward))
 #+end_src
 
 
