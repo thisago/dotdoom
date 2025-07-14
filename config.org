@@ -26,6 +26,9 @@
 
 
 * Org Mode
+#+begin_src emacs-lisp
+(after! org
+#+end_src
 ** General Settings
 #+begin_src emacs-lisp
 (setq
@@ -35,14 +38,13 @@
 
 ** Visuals
 #+begin_src emacs-lisp
-(after! org-mode
-  (setq-default
-   org-adapt-indentation t
-   org-hide-leading-stars t
-   org-pretty-entities t
-   org-ellipsis " 󱞣"
-   org-use-sub-superscripts "{}"
-   +org-pretty-mode t))
+(setq-default
+ org-adapt-indentation t
+ org-hide-leading-stars t
+ org-pretty-entities t
+ org-ellipsis " 󱞣"
+ org-use-sub-superscripts "{}"
+ +org-pretty-mode t)
 #+end_src
 ** Editing
 #+begin_src emacs-lisp
@@ -52,17 +54,16 @@
 ** Headlines
 Next and previous headlines, see https://github.com/jethrokuan/dots/blob/master/.doom.d/config.el
 #+begin_src emacs-lisp
-(after! org-mode
-  (map! :map org-mode-map
-        "M-n" #'outline-next-visible-heading
-        "M-p" #'outline-previous-visible-heading))
+(map! :map org-mode-map
+      "M-n" #'outline-next-visible-heading
+      "M-p" #'outline-previous-visible-heading)
 #+end_src
 Show headline numbers:
 #+begin_src emacs-lisp
 (add-hook 'org-mode-hook #'org-num-mode)
 #+end_src
 
-** Source Blocks
+** Source Blocks :ARCHIVE:
 Disable editing source code in dedicated buffer
 #+begin_src emacs-lisp
 (defun org-edit-src-code nil)
@@ -136,8 +137,7 @@ Priorities
 
 ** Nerd Icons
 #+begin_src emacs-lisp
-(after! org-mode
-  (define-key org-mode-map (kbd "C-c n n") 'nerd-icons-insert))
+(define-key org-mode-map (kbd "C-c n n") 'nerd-icons-insert)
 #+end_src
 
 ** Org Auto Tangle
@@ -145,6 +145,10 @@ Priorities
 (add-hook 'org-mode-hook 'org-auto-tangle-mode)
 #+end_src
 
+** End of Org Config
+#+begin_src emacs-lisp
+) ;; End of (after! org)
+#+end_src
 
 * Evil
 ** Keybinds
