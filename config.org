@@ -26,7 +26,7 @@
 
 
 * Org Mode
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :exports none
 (after! org
 #+end_src
 ** General Settings
@@ -245,7 +245,7 @@ https://red.artemislena.eu/r/emacs/comments/o04it0/share_your_prettifysymbolsali
 #+end_src
 
 ** End of Org Config
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :exports none
 ) ;; End of (after! org)
 #+end_src
 
@@ -308,7 +308,7 @@ Obfuscate user agent
 
 
 * Work
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :exports none
 (when (string= (system-name) "work")
 #+end_src
 ** Copilot
