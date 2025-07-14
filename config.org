@@ -150,11 +150,32 @@ Priorities
 ) ;; End of (after! org)
 #+end_src
 
+
 * Evil
 ** Keybinds
 #+begin_src emacs-lisp
 (after! evil
   (define-key evil-motion-state-map (kbd "C-e") 'doom/forward-to-last-non-comment-or-eol))
+#+end_src
+
+
+
+* Drag Stuff
+https://github.com/doomemacs/doomemacs/commit/816db4a62addf7ac5e658123ba081069d224d310#diff-9cb538cec4592d2ce91c563cca1a9486c13b5af564c30fb9844f8001d61a00d0R593
+#+begin_src emacs-lisp
+(use-package! drag-stuff
+  :defer t
+  :init
+  (map! "<M-up>"    #'drag-stuff-up
+        "<M-down>"  #'drag-stuff-down
+        "<M-left>"  #'drag-stuff-left
+        "<M-right>" #'drag-stuff-right))
+#+end_src
+
+* Search
+** Isearch
+#+begin_src emacs-lisp
+(define-key global-map (kbd "M-s") 'isearch-backward)
 #+end_src
 
 
@@ -243,10 +264,13 @@ Obfuscate user agent
 
 * LSP
 #+begin_src emacs-lisp
-(setq
- lsp-modeline-code-actions-enable t
- lsp-modeline-diagnostics-enable t
- lsp-lens-enable t
- lsp-semantic-tokens-enable t
- lsp-headerline-breadcrumb-enable t)
+(after! lsp
+  (general-evil-define-key 'normal 'global :prefix "SPC" "c R" 'lsp-restart-workspace)
+
+  (setq
+   lsp-modeline-code-actions-enable t
+   lsp-modeline-diagnostics-enable t
+   lsp-lens-enable t
+   lsp-semantic-tokens-enable t
+   lsp-headerline-breadcrumb-enable t))
 #+end_src
