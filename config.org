@@ -96,6 +96,21 @@ Priorities
   (my/org-roam-refresh-agenda-list))
 #+end_src
 
+*** Keybinds
+#+begin_src emacs-lisp
+(after! org-roam
+  (global-set-key (kbd "C-c n l") #'org-roam-buffer-toggle)
+  (global-set-key (kbd "C-c n f") #'org-roam-node-find)
+  (global-set-key (kbd "C-c n g") #'org-roam-graph)
+  (global-set-key (kbd "C-c n i") #'org-roam-node-insert)
+  (global-set-key (kbd "C-c n c") #'org-roam-capture)
+  (global-set-key (kbd "C-c n j") #'org-roam-dailies-capture-today)
+  (global-set-key (kbd "C-c n a") #'org-roam-alias-add)
+  (global-set-key (kbd "C-c n A") #'org-roam-ref-add)
+  (global-set-key (kbd "C-c n r") #'my/org-roam-refresh-agenda-list)
+  (global-set-key (kbd "C-c n R") #'org-roam-db-sync))
+#+end_src
+
 
 * Privacy
 ** Url Lib
