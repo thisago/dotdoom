@@ -12,7 +12,23 @@
 #+end_src
 
 
+* Environment Variables and Secrets
+** Slack Secrets
+#+begin_src emacs-lisp
+(defvar my/slack-token
+  (string-trim (shell-command-to-string "pass net/slack.com/integratedarts/token"))
+  "Slack token loaded from pass.")
+
+(defvar my/slack-cookie
+  (string-trim (shell-command-to-string "pass net/slack.com/integratedarts/cookie"))
+  "Slack cookie loaded from pass.")
+#+end_src
+
+
 * Org Mode
+#+begin_src emacs-lisp
+(after! org-mode
+#+end_src
 ** General Settings
 #+begin_src emacs-lisp
 (setq
@@ -114,6 +130,16 @@ Priorities
   (global-set-key (kbd "C-c n R") #'org-roam-db-sync))
 #+end_src
 
+** Nerd Icons
+#+begin_src emacs-lisp
+(define-key org-mode-map (kbd "C-c n n") 'nerd-icons-insert)
+#+end_src
+
+** End of Org Mode config
+#+begin_src emacs-lisp
+)
+#+end_src
+
 
 * Evil
 ** Keybinds
@@ -130,4 +156,78 @@ Obfuscate user agent
 (setq
  url-user-agent "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3"
  url-privacy-level 'high)
+#+end_src
+
+
+* Work
+#+begin_src emacs-lisp
+(when (string= (system-name) "work")
+#+end_src
+** Copilot
+ #+begin_src emacs-lisp
+(use-package! copilot
+  :hook (prog-mode . copilot-mode)
+  :bind (("C-c M-f" . copilot-complete)
+         :map copilot-completion-map
+         ("C-g" . 'copilot-clear-overlay)
+         ("M-p" . 'copilot-previous-completion)
+         ("M-n" . 'copilot-next-completion)
+         ("<tab>" . 'copilot-accept-completion)
+         ("TAB" . 'copilot-accept-completion)
+         ("M-f" . 'copilot-accept-completion-by-word)
+         ("M-<return>" . 'copilot-accept-completion-by-line))
+
+  :config
+  (add-to-list 'copilot-indentation-alist '(prog-mode 2))
+  (add-to-list 'copilot-indentation-alist '(org-mode 2))
+  (add-to-list 'copilot-indentation-alist '(text-mode 2)))
+#+end_src
+
+*** Slack Client
+#+begin_src emacs-lisp
+(use-package! emacs-slack
+  :bind (("C-c S K" . slack-stop)
+         ("C-c S c" . slack-select-rooms)
+         ("C-c S u" . slack-select-unread-rooms)
+         ("C-c S U" . slack-user-select)
+         ("C-c S s" . slack-search-from-messages)
+         ("C-c S J" . slack-jump-to-browser)
+         ("C-c S j" . slack-jump-to-app)
+         ("C-c S e" . slack-insert-emoji)
+         ("C-c S E" . slack-message-edit)
+         ("C-c S r" . slack-message-add-reaction)
+         ("C-c S t" . slack-thread-show-or-create)
+         ("C-c S g" . slack-message-redisplay)
+         ("C-c S G" . slack-conversations-list-update-quick)
+         ("C-c S q" . slack-quote-and-reply)
+         ("C-c S Q" . slack-quote-and-reply-with-link)
+         (:map slack-mode-map
+               (("@" . slack-message-embed-mention)
+                ("#" . slack-message-embed-channel)))
+         (:map slack-thread-message-buffer-mode-map
+               (("C-c '" . slack-message-write-another-buffer)
+                ("@" . slack-message-embed-mention)
+                ("#" . slack-message-embed-channel)))
+         (:map slack-message-buffer-mode-map
+               (("C-c '" . slack-message-write-another-buffer)))
+         (:map slack-message-compose-buffer-mode-map
+               (("C-c '" . slack-message-send-from-buffer))))
+  :config
+  (slack-register-team
+   :token my/slack-token
+   :cookie my/slack-cookie
+   :full-and-display-names t
+   :default t
+   :subscribed-channels nil))
+
+(use-package! alert
+  :commands (alert)
+  :init
+  (setq alert-default-style 'notifier))
+#+end_src
+
+
+** End of work config
+#+begin_src emacs-lisp :exports none
+)
 #+end_src

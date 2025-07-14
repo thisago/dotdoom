@@ -70,6 +70,8 @@
     :recipe (:host github :repo "emacs-slack/emacs-slack" :files ("*.el")))
   (package! copilot-chat
     :recipe (:host github :repo "chep/copilot-chat.el" :files ("*.el") :branch "master"))
+  (package! ts)
+  (package! websocket)
   (package! aidermacs))
 
 
