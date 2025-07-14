@@ -1,5 +1,5 @@
 #+title: Doom Emacs Config
 
-[[https://gist.github.com/user-attachments/assets/61024d3a-acdb-4131-9995-129bee0f5d3f#.png]]
+[[https://github.com/user-attachments/assets/4031e367-5c36-4d6b-9e61-18410f2702fe#.png]]
 
 See it on [[file:./config.org]]
