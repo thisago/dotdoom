@@ -1,12 +1,6 @@
 #+title: Emacs Config
 #+startup: content
 
-* Meta
-#+begin_src emacs-lisp
-;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
-#+end_src
-
-
 * Appearance
 ** Theme
 #+begin_src emacs-lisp
