@@ -165,8 +165,11 @@ https://red.artemislena.eu/r/emacs/comments/o04it0/share_your_prettifysymbolsali
            ;; Props, metadata and blocks
            ("#+AUTHOR" .          ?)
            ("#+AUTO_TANGLE" .     ?)
+           ("#+BEGIN:" .          ?)
            ("#+BEGIN_QUOTE" .     ?)
            ("#+BEGIN_SRC" .       ?)
+           ("#+CAPTION:" .        ?󰆆)
+           ("#+END:" .            ?󱞿)
            ("#+END_QUOTE" .       ?)
            ("#+END_SRC" .         ?)
            ("#+FILETAGS" .        ?󰓹)
