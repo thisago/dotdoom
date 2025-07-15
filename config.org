@@ -453,7 +453,7 @@ Go to file in a new window
   (define-key magit-diff-mode-map (kbd "M-RET") 'magit-diff-visit-worktree-file-other-window))
 #+end_src
 ** Diff
-Syntax highlighting
+[[https://github.com/magit/magit/issues/2942#issuecomment-1026201640][Syntax highlighting]]
 #+begin_src emacs-lisp
 (use-package! magit-delta
   :after magit
