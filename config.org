@@ -396,8 +396,29 @@ Obfuscate user agent
 
 
 * EWW
+Keybinds
 #+begin_src emacs-lisp
 (define-key global-map (kbd "C-c e") 'eww)
+
+(after! eww
+  (define-key eww-mode-map (kbd "C-c l") 'eww-copy-page-url)
+  (define-key eww-mode-map (kbd "C-c r") 'eww-reload)
+  (add-hook 'eww-mode-hook 'display-line-numbers-mode))
+#+end_src
+
+Default browser
+#+begin_src emacs-lisp
+(setq browse-url-browser-function 'eww-browse-url)
+#+end_src
+
+Auto-rename new eww buffers allowing multiple sessions
+#+begin_src emacs-lisp
+(defun eww-rename-buffer-hook ()
+  "Rename eww browser's buffer so sites open in new page."
+  (rename-buffer "eww" t))
+
+(after! eww
+  (add-hook 'eww-mode-hook #'eww-rename-buffer-hook))
 #+end_src
 
 
