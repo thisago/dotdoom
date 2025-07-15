@@ -153,6 +153,20 @@ Disable things
         org-modern-block-name nil
         org-modern-keyword nil))
 #+end_src
+Improve table
+#+begin_src emacs-lisp
+(setq
+ org-modern-table-horizontal 1
+ org-modern-table-vertical 1)
+#+end_src
+Tasks
+#+begin_src emacs-lisp
+(setq org-modern-priority
+      '((?A . "")
+        (?B . "")
+        (?C . "")
+        (?D . "")))
+#+end_src
 
 ** Prettify Symbols
 https://red.artemislena.eu/r/emacs/comments/o04it0/share_your_prettifysymbolsalist/
