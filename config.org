@@ -433,3 +433,18 @@ Auto-rename new eww buffers allowing multiple sessions
 (after! focus
   (global-set-key (kbd "M-f") #'focus-mode))
 #+end_src
+
+
+* Magit
+** Diff
+Syntax highlighting
+#+begin_src emacs-lisp
+(use-package! magit-delta
+  :after magit
+  :config
+  (setq
+   magit-delta-default-dark-theme "gruvbox-dark"
+   magit-delta-default-light-theme "Github"
+   magit-delta-hide-plus-minus-markers nil)
+  (magit-delta-mode))
+#+end_src
