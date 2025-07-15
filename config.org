@@ -464,3 +464,10 @@ Syntax highlighting
    magit-delta-hide-plus-minus-markers nil)
   (magit-delta-mode))
 #+end_src
+
+
+* Indent Level
+Typescript
+#+begin_src emacs-lisp
+(setq typescript-indent-level 2)
+#+end_src
