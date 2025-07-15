@@ -436,6 +436,12 @@ Auto-rename new eww buffers allowing multiple sessions
 
 
 * Magit
+** Keybinds
+Go to file in a new window
+#+begin_src emacs-lisp
+(after! magit
+  (define-key magit-diff-mode-map (kbd "M-RET") 'magit-diff-visit-worktree-file-other-window))
+#+end_src
 ** Diff
 Syntax highlighting
 #+begin_src emacs-lisp
