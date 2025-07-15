@@ -1,6 +1,12 @@
 #+title: Doom Emacs Config
 #+startup: content
 
+* Header
+#+begin_src emacs-lisp
+;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
+#+end_src
+
+
 * Appearance
 ** Theme
 #+begin_src emacs-lisp
@@ -244,6 +250,11 @@ https://red.artemislena.eu/r/emacs/comments/o04it0/share_your_prettifysymbolsali
    (prettify-symbols-mode)))
 #+end_src
 
+** Pomodoro
+#+begin_src emacs-lisp
+(after! org-pomodoro
+  (general-evil-define-key 'normal 'org-mode-map :prefix "SPC" "m c p" 'org-pomodoro))
+#+end_src
 ** End of Org Config
 #+begin_src emacs-lisp :exports none
 ) ;; End of (after! org)
@@ -382,16 +393,15 @@ Obfuscate user agent
 
 * LSP
 #+begin_src emacs-lisp
-(after! lsp
-  (general-evil-define-key 'normal 'global :prefix "SPC" "c R" 'lsp-restart-workspace)
+(general-evil-define-key 'normal 'global :prefix "SPC" "c R" 'lsp-restart-workspace)
 
-  (setq
-   lsp-modeline-code-actions-enable t
-   lsp-modeline-diagnostics-enable t
-   lsp-lens-enable t
-   lsp-semantic-tokens-enable t
-   lsp-headerline-breadcrumb-enable t
-   lsp-eslint-format t))
+(setq
+ lsp-modeline-code-actions-enable t
+ lsp-modeline-diagnostics-enable t
+ lsp-lens-enable t
+ lsp-semantic-tokens-enable t
+ lsp-headerline-breadcrumb-enable t
+ lsp-eslint-format t)
 #+end_src
 
 
