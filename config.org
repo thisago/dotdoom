@@ -426,3 +426,10 @@ Auto-rename new eww buffers allowing multiple sessions
 #+begin_src emacs-lisp
 (define-key global-map (kbd "C-c d") 'ispell-change-dictionary)
 #+end_src
+
+
+* Focus Mode
+#+begin_src emacs-lisp
+(after! focus
+  (global-set-key (kbd "M-f") #'focus-mode))
+#+end_src
