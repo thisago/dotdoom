@@ -94,7 +94,7 @@ Priorities
 (after! org-roam
   (setq
    org-roam-directory (file-truename "~/org/")
-   org-roam-dailies-directory "braindump/journal/"
+   org-roam-dailies-directory "dailies/"
    org-roam-db-autosync-mode t))
 #+end_src
 
