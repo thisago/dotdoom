@@ -45,4 +45,3 @@
 (package! prisma-mode :recipe (:host github :repo "pimeys/emacs-prisma-mode" :branch "main"))
 (package! drag-stuff) ;; https://github.com/doomemacs/doomemacs/issues/8057#issuecomment-2337584180
 (package! magit-delta)
-(package! org-pomodoro)
