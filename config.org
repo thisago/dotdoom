@@ -495,3 +495,15 @@ Typescript
 #+begin_src emacs-lisp
 (setq typescript-indent-level 2)
 #+end_src
+
+
+* Subword Mode
+Enable on visual mode and disables it on exit.
+#+begin_src emacs-lisp
+(add-hook 'evil-insert-state-entry-hook
+          (lambda ()
+            (subword-mode 1)))
+(add-hook 'evil-insert-state-exit-hook
+          (lambda ()
+            (subword-mode -1)))
+#+end_src
