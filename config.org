@@ -369,6 +369,7 @@ Obfuscate user agent
 ** Slack Client
 #+begin_src emacs-lisp
 (use-package! emacs-slack
+  :defer nil
   :bind (("C-c S K" . slack-stop)
          ("C-c S c" . slack-select-rooms)
          ("C-c S u" . slack-select-unread-rooms)
