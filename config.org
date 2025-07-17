@@ -97,6 +97,16 @@ Priorities
    org-roam-dailies-directory "dailies/"
    org-roam-db-autosync-mode t))
 #+end_src
+Capturing
+#+begin_src emacs-lisp
+(after! org-roam
+  ;; TODO: Move the capture templates to external Org files
+  (setq org-roam-dailies-capture-templates
+        '(("d" "default" entry
+           "* %<%I:%M %p>: %?"
+           :target (file+head "%<%Y%m%d>.org"
+                              "#+title: %<%Y-%m-%d>\n#+filetags: dailies\n\n")))))
+#+end_src
 
 *** Agenda Integration
 #+begin_src emacs-lisp
