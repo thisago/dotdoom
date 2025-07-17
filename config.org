@@ -426,7 +426,9 @@ Obfuscate user agent
  lsp-lens-enable t
  lsp-semantic-tokens-enable t
  lsp-headerline-breadcrumb-enable t
- lsp-eslint-format t)
+ lsp-eslint-format t
+ lsp-typescript-format-enable nil
+ lsp-javascript-format-enable nil)
 #+end_src
 
 
