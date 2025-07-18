@@ -276,8 +276,7 @@ https://red.artemislena.eu/r/emacs/comments/o04it0/share_your_prettifysymbolsali
 
 ** Pomodoro
 #+begin_src emacs-lisp
-(after! org-pomodoro
-  (general-evil-define-key 'normal 'org-mode-map :prefix "SPC" "m c p" 'org-pomodoro))
+(general-evil-define-key 'normal 'org-mode-map :prefix "SPC" "m c p" 'org-pomodoro)
 #+end_src
 ** End of Org Config
 #+begin_src emacs-lisp :exports none
