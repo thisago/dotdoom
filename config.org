@@ -434,6 +434,18 @@ Obfuscate user agent
  lsp-typescript-format-enable nil
  lsp-javascript-format-enable nil)
 #+end_src
+As the formatting is throwing an error, and [[https://github.com/thisago/lsp-mode/commit/f0fb8f3025c5e208250fe70c41c8aa364823c130][I was not yet able to solve]],
+#+begin_example
+No catch for tag: --cl-block-nil--, nil
+#+end_example
+
+I'll disable LSP for CSS manually (as the [[file:init.el::web]] is configured with ~+lsp~):
+#+begin_src emacs-lisp
+(remove-hook! 'css-mode-local-vars-hook #'lsp!)
+(remove-hook! 'scss-mode-local-vars-hook #'lsp!)
+(remove-hook! 'sass-mode-local-vars-hook #'lsp!)
+(remove-hook! 'less-css-mode-local-vars-hook #'lsp!)
+#+end_src
 
 
 * EWW
