@@ -87,6 +87,24 @@ Priorities
         (?C . success)    ;; Medium-low: green, used for success/info
         (?D . shadow)))   ;; Lowest: shadow, de-emphasized, greyed out
 #+end_src
+Enable Org logging options
+#+begin_src emacs-lisp
+(setq
+ ;; Asks a note and a CLOSED: timestamp when moving the task to DONE
+ org-log-done 'note
+ ;; Asks a note when moving the task
+ org-log-refile 'note
+ ;; Asks a note when updating the scheduled date
+ org-log-reschedule 'note
+ ;; Asks a note when updating the deadline
+ org-log-redeadline 'note
+ ;; Asks a note when clocking out
+ org-log-note-clock-out t
+ ;; Aggregate all logs into a drawer
+ org-log-into-drawer t
+ ;; Write the notes in ascending order
+ org-log-states-order-reversed nil)
+#+end_src
 
 ** Roam
 *** Settings
@@ -525,4 +543,27 @@ Enable on visual mode and disables it on exit.
 (add-hook 'evil-insert-state-exit-hook
           (lambda ()
             (subword-mode -1)))
+#+end_src
+
+
+* Dape
+#+begin_src emacs-lisp
+(after! dape
+  (setq dape-adapter-dir (concat user-emacs-directory "debug-adapters")))
+
+(add-to-list 'dape-configs
+             `(js-debug-chrome
+               modes (js-mode js-ts-mode)
+	       command "node"
+               command-cwd "/home/user/.config/emacs/debug-adapters/js-debug/")
+               command-args ("src/dapDebugServer.js" ,(format "%d" dape-configs-port))
+               port dape-configs-port
+               :type "pwa-chrome"
+               :name "Debug react"
+               :trace t
+               :url ,(lambda ()
+                       (read-string "Url: "
+                                    "http://localhost:3000"))
+               :webRoot dape-cwd-fn
+               :outputCapture "console"))
 #+end_src
