@@ -549,13 +549,13 @@ Enable on visual mode and disables it on exit.
 * Dape
 #+begin_src emacs-lisp
 (after! dape
-  (setq dape-adapter-dir (concat user-emacs-directory "debug-adapters")))
+  (setq dape-adapter-dir (concat user-emacs-directory "debug-adapters"))
 
-(add-to-list 'dape-configs
-             `(js-debug-chrome
-               modes (js-mode js-ts-mode)
-	       command "node"
-               command-cwd "/home/user/.config/emacs/debug-adapters/js-debug/")
+  (add-to-list 'dape-configs
+               `(js-debug-chrome
+                 modes (js-mode js-ts-mode)
+	         command "node"
+                 command-cwd "/home/user/.config/emacs/debug-adapters/js-debug/")
                command-args ("src/dapDebugServer.js" ,(format "%d" dape-configs-port))
                port dape-configs-port
                :type "pwa-chrome"
