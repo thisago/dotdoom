@@ -450,7 +450,8 @@ Obfuscate user agent
  lsp-headerline-breadcrumb-enable t
  lsp-eslint-format t
  lsp-typescript-format-enable nil
- lsp-javascript-format-enable nil)
+ lsp-javascript-format-enable nil
+ lsp-bash-highlight-parsing-errors t)
 #+end_src
 As the formatting is throwing an error, and [[https://github.com/thisago/lsp-mode/commit/f0fb8f3025c5e208250fe70c41c8aa364823c130][I was not yet able to solve]],
 #+begin_example
@@ -566,4 +567,11 @@ Enable on visual mode and disables it on exit.
                                     "http://localhost:3000"))
                :webRoot dape-cwd-fn
                :outputCapture "console"))
+#+end_src
+
+
+* Apheleia
+Enable formatter for SH. See [[https://github.com/radian-software/apheleia//commit/93d2b30dd08c43edde6bdbbd36f42da751bc0975][Do not enable shfmt by default · radian-software/apheleia@93d2b30 · GitHub]]
+#+begin_src emacs-lisp
+(add-to-list 'apheleia-mode-alist '(sh-mode . shfmt))
 #+end_src
