@@ -575,3 +575,11 @@ Enable formatter for SH. See [[https://github.com/radian-software/apheleia//comm
 #+begin_src emacs-lisp
 (add-to-list 'apheleia-mode-alist '(sh-mode . shfmt))
 #+end_src
+
+
+* Flycheck
+Next/Previous error
+#+begin_src emacs-lisp
+(general-evil-define-key 'normal 'prog-mode-map :prefix "[" "e" 'flycheck-previous-error)
+(general-evil-define-key 'normal 'prog-mode-map :prefix "]" "e" 'flycheck-next-error)
+#+end_src
