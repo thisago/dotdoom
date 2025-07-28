@@ -189,11 +189,13 @@ Improve table
 #+end_src
 Tasks
 #+begin_src emacs-lisp
-(setq org-modern-priority
-      '((?A . "")
-        (?B . "")
-        (?C . "")
-        (?D . "")))
+(setq
+ org-modern-priority
+ '((?A . "")
+   (?B . "")
+   (?C . "")
+   (?D . ""))
+ org-modern-progress 8)
 #+end_src
 
 ** Prettify Symbols
