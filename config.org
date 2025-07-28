@@ -504,8 +504,7 @@ Auto-rename new eww buffers allowing multiple sessions
 
 * Focus Mode
 #+begin_src emacs-lisp
-(after! focus
-  (global-set-key (kbd "M-f") #'focus-mode))
+(global-set-key (kbd "M-f") #'focus-mode)
 #+end_src
 
 
