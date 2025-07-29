@@ -309,6 +309,11 @@ https://red.artemislena.eu/r/emacs/comments/o04it0/share_your_prettifysymbolsali
 (add-hook 'org-agenda-finalize-hook 'org-timeline-insert-timeline :append)
 #+end_src
 
+** Tables
+Enable =phscroll=
+#+begin_src emacs-lisp
+(setq phscroll-mode t)
+#+end_src
 ** End of Org Config
 #+begin_src emacs-lisp :exports none
 ) ;; End of (after! org)
