@@ -17,6 +17,12 @@
 (setq display-line-numbers-type 'relative)
 #+end_src
 
+** Column Indicator
+An visual indicator to avoid lengthy lines
+#+begin_src emacs-lisp
+(setq display-fill-column-indicator t)
+#+end_src
+
 
 * Environment Variables and Secrets
 ** Slack Secrets
