@@ -119,7 +119,8 @@ Enable Org logging options
   (setq
    org-roam-directory (file-truename "~/org/")
    org-roam-dailies-directory "dailies/"
-   org-roam-db-autosync-mode t))
+   org-roam-db-autosync-mode t
+   org-roam-completion-everywhere nil))
 #+end_src
 Capturing
 #+begin_src emacs-lisp
