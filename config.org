@@ -509,8 +509,14 @@ Auto-rename new eww buffers allowing multiple sessions
 
 
 * Spell checking
+Keybinds
 #+begin_src emacs-lisp
 (define-key global-map (kbd "C-c d") 'ispell-change-dictionary)
+#+end_src
+Enable on YAML mode
+#+begin_src emacs-lisp
+(after! yaml-mode
+  (add-hook 'yaml-mode-hook 'flyspell-mode))
 #+end_src
 
 
