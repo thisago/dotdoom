@@ -313,7 +313,7 @@ https://red.artemislena.eu/r/emacs/comments/o04it0/share_your_prettifysymbolsali
 ** Tables
 Enable =phscroll=
 #+begin_src emacs-lisp
-(setq phscroll-mode t)
+(add-hook 'org-mode-hook #'phscroll-mode)
 #+end_src
 ** End of Org Config
 #+begin_src emacs-lisp :exports none
