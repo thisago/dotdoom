@@ -24,19 +24,6 @@ An visual indicator to avoid lengthy lines
 #+end_src
 
 
-* Environment Variables and Secrets
-** Slack Secrets
-#+begin_src emacs-lisp
-(defvar work/slack-token
-  (string-trim (shell-command-to-string "pass emacs/slack/token"))
-  "Slack token loaded from pass.")
-
-(defvar work/slack-cookie
-  (string-trim (shell-command-to-string "pass emacs/slack/cookie"))
-  "Slack cookie loaded from pass.")
-#+end_src
-
-
 * Org Mode
 #+begin_src emacs-lisp :exports none
 (after! org
@@ -402,6 +389,18 @@ Obfuscate user agent
 #+end_src
 
 ** Slack Client
+*** Slack Secrets
+#+begin_src emacs-lisp
+(defvar work/slack-token
+  (string-trim (shell-command-to-string "pass emacs/slack/token"))
+  "Slack token loaded from pass.")
+
+(defvar work/slack-cookie
+  (string-trim (shell-command-to-string "pass emacs/slack/cookie"))
+  "Slack cookie loaded from pass.")
+#+end_src
+
+*** Setup
 #+begin_src emacs-lisp
 (use-package! emacs-slack
   :defer nil
