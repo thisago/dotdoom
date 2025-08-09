@@ -79,7 +79,7 @@ Show headline numbers:
 Keywords
 #+begin_src emacs-lisp
 (setq org-todo-keywords
-      '((sequence "TODO(t@/!)" "NEXT(n!)" "PROG(p@/!)" "CHCK(c@/!)" "|" "DONE(d@/!)" "KILL(k@/!)" "DELE(D@/!)")
+      '((sequence "TODO(t@/!)" "PROG(p@/!)" "CHCK(c@/!)" "|" "DONE(d@/!)" "KILL(k@/!)" "DELE(D@/!)")
         (sequence "WIP(W@/!)" "WAIT(w@/!)" "INT(i@/!)")))
 #+end_src
 Priorities
@@ -286,8 +286,6 @@ https://red.artemislena.eu/r/emacs/comments/o04it0/share_your_prettifysymbolsali
            ("State \"WAIT\"" . ?)
            ("\"INT\"       " . ?)
            ("State \"INT\" " . ?)
-           ("\"NEXT\"      " . ?󰙢)
-           ("State \"NEXT\"" . ?󰙢)
            ("\"WIP\"       " . ?󰒡)
            ("State \"WIP\" " . ?󰒡)
            ("\"PROG\"      " . ?)
