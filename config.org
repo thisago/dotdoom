@@ -603,3 +603,14 @@ Next/Previous error
 (general-evil-define-key 'normal 'global-map :prefix "[" "e" 'flycheck-previous-error)
 (general-evil-define-key 'normal 'global-map :prefix "]" "e" 'flycheck-next-error)
 #+end_src
+
+
+* browse-at-remote
+#+begin_src emacs-lisp
+(after! browse-at-remote
+  (add-to-list 'browse-at-remote-remote-type-regexps
+               `(:host "^vf$"
+                 :type "gitea"
+                 :actual-host "192.168.240.1:3000"))
+  (add-to-list 'browse-at-remote-use-http "vf"))
+#+end_src
