@@ -278,7 +278,7 @@ https://red.artemislena.eu/r/emacs/comments/o04it0/share_your_prettifysymbolsali
            (":LOGBOOK:"         . ?󱃕)
            (":NOTER_PAGE:"      . ?󱗖)
            (":PROPERTIES:"      . ?)
-           (":REPEAT_TO_STATE:".  ?)
+           (":REPEAT_TO_STATE:" . ?)
            (":ROAM_ALIASES:"    . ?󰑕)
            (":ROAM_NAME:"       . ?󰗴)
            (":ROAM_REFS:"       . ?)
