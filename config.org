@@ -63,12 +63,41 @@ Show headline numbers:
 #+end_src
 
 ** Tasks
-Keywords
+Keywords:
+| *Keyword* | *Status*   | *Description*            | *Why*                   |
+|---------+----------+------------------------+-----------------------|
+| =TODO=    | Inactive | Ready for action       | Common keyword        |
+| =STRT=    | Active   | In progress            | Used in Doom          |
+| =KILL=    | Inactive | Canceled               | Used in Doom          |
+| =DONE=    | Inactive | Finished               | Common used           |
+| =DRAFT=   | Inactive | Requires clarification | Better than =WIP=       |
+| =HOLD=    | Inactive | Externally blocked     | More common than =WAIT= |
+
 #+begin_src emacs-lisp
 (setq org-todo-keywords
-      '((sequence "TODO(t@/!)" "PROG(p@/!)" "CHCK(c@/!)" "|" "DONE(d@/!)" "KILL(k@/!)" "DELE(D@/!)")
-        (sequence "WIP(W@/!)" "WAIT(w@/!)" "INT(i@/!)")))
+      '((sequence
+         "DRAFT(r@/!)"    ; Needs clarification; do not schedule yet
+         "TODO(t@/!)"     ; Ready for action
+         "STRT(s@/!)"     ; In progress
+         "HOLD(h@/!)"     ; Blocked / paused
+         "|"              ; Closed states
+         "DONE(d@/!)"     ; Finished
+         "KILL(k@/!)"     ; Canceled
+         )))
+
+(setq org-todo-keyword-faces
+      '(
+        ;; Active execution
+        ("STRT"  . +org-todo-active)
+        ;; Blocked / paused (and draft)
+        ("HOLD"  . +org-todo-onhold)
+        ("DRAFT" . +org-todo-project)
+        ;; Canceled
+        ("KILL"  . +org-todo-cancel)
+        ;; TODO and DONE intentionally use default faces
+        ))
 #+end_src
+
 Priorities
 #+begin_src emacs-lisp
 (setq org-lowest-priority ?D)
@@ -207,82 +236,76 @@ https://red.artemislena.eu/r/emacs/comments/o04it0/share_your_prettifysymbolsali
            ("[-]" . ?)
 
            ;; Props, metadata and blocks
-           ("#+AUTHOR" .          ?)
-           ("#+AUTO_TANGLE" .     ?)
-           ("#+BEGIN:" .          ?)
-           ("#+BEGIN_QUOTE" .     ?)
-           ("#+BEGIN_SRC" .       ?)
-           ("#+CAPTION:" .        ?󰆆)
-           ("#+END:" .            ?󱞿)
-           ("#+END_QUOTE" .       ?)
-           ("#+END_SRC" .         ?)
-           ("#+FILETAGS" .        ?󰓹)
-           ("#+HTML_HEAD" .       ?)
-           ("#+NAME" .            ?󰫧)
-           ("#+OPTIONS" .         ?)
-           ("#+PROPERTY" .        ?)
-           ("#+RESULTS:" .        ?)
-           ("#+STARTUP" .         ?)
-           ("#+TITLE" .           ?󰗴)
-           ("#+author" .          ?)
-           ("#+auto_tangle" .     ?)
-           ("#+begin_example" .   ?󰝓)
-           ("#+begin_export" .    ?󰛂)
-           ("#+begin_quote" .     ?)
-           ("#+begin_src" .       ?)
-           ("#+end_example" .     ?󰝕)
-           ("#+end_export" .      ?󰛁)
-           ("#+end_quote" .       ?)
-           ("#+end_src" .         ?)
-           ("#+filetags" .        ?󰓹)
-           ("#+html_head" .       ?)
-           ("#+name" .            ?󰫧)
-           ("#+options" .         ?)
-           ("#+property" .        ?)
-           ("#+startup" .         ?)
-           ("#+title" .           ?󰗴)
-           (":EFFORT:" .          ?󱤥)
-           (":END:" .             ?󱞿)
-           (":Effort:" .          ?󱤥)
-           (":ID:" .              ?󰻾)
-           (":LAST_REPEAT:" .     ?)
-           (":LOGBOOK:" .         ?󱃕)
-           (":NOTER_PAGE:" .      ?󱗖)
-           (":PROPERTIES:" .      ?)
-           (":REPEAT_TO_STATE:" . ?)
-           (":ROAM_ALIASES:" .    ?󰑕)
-           (":ROAM_NAME:" .       ?󰗴)
-           (":ROAM_REFS:" .       ?)
-           (":STYLE:" .           ?)
-           (":VISIBILITY:" .      ?)
-           ("CLOCK:" .            ?󰥔)
-           ("CLOSED:" .           ?)
-           ("DEADLINE:" .         ?󰀡)
-           ("SCHEDULED:" .        ?󰁫)
+           ("#+AUTHOR"          . ?)
+           ("#+AUTO_TANGLE"     . ?)
+           ("#+BEGIN:"          . ?)
+           ("#+BEGIN_QUOTE"     . ?)
+           ("#+BEGIN_SRC"       . ?)
+           ("#+CAPTION:"        . ?󰆆)
+           ("#+END:"            . ?󱞿)
+           ("#+END_QUOTE"       . ?)
+           ("#+END_SRC"         . ?)
+           ("#+FILETAGS"        . ?󰓹)
+           ("#+HTML_HEAD"       . ?)
+           ("#+NAME"            . ?󰫧)
+           ("#+OPTIONS"         . ?)
+           ("#+PROPERTY"        . ?)
+           ("#+RESULTS:"        . ?)
+           ("#+STARTUP"         . ?)
+           ("#+TITLE"           . ?󰗴)
+           ("#+author"          . ?)
+           ("#+auto_tangle"     . ?)
+           ("#+begin_example"   . ?󰝓)
+           ("#+begin_export"    . ?󰛂)
+           ("#+begin_quote"     . ?)
+           ("#+begin_src"       . ?)
+           ("#+end_example"     . ?󰝕)
+           ("#+end_export"      . ?󰛁)
+           ("#+end_quote"       . ?)
+           ("#+end_src"         . ?)
+           ("#+filetags"        . ?󰓹)
+           ("#+html_head"       . ?)
+           ("#+name"            . ?󰫧)
+           ("#+options"         . ?)
+           ("#+property"        . ?)
+           ("#+startup"         . ?)
+           ("#+title"           . ?󰗴)
+           (":EFFORT:"          . ?󱤥)
+           (":END:"             . ?󱞿)
+           (":Effort:"          . ?󱤥)
+           (":ID:"              . ?󰻾)
+           (":LAST_REPEAT:"     . ?)
+           (":LOGBOOK:"         . ?󱃕)
+           (":NOTER_PAGE:"      . ?󱗖)
+           (":PROPERTIES:"      . ?)
+           (":REPEAT_TO_STATE:".  ?)
+           (":ROAM_ALIASES:"    . ?󰑕)
+           (":ROAM_NAME:"       . ?󰗴)
+           (":ROAM_REFS:"       . ?)
+           (":STYLE:"           . ?)
+           (":VISIBILITY:"      . ?)
+           ("CLOCK:"            . ?󰥔)
+           ("CLOSED:"           . ?)
+           ("DEADLINE:"         . ?󰀡)
+           ("SCHEDULED:"        . ?󰁫)
 
            ;; statuses and notes
-           ("Note taken on" .  ?󰎜)
-           ("       from " .   ?)
-           ("\"TODO\"      " . ?)
-           ("State \"TODO\"" . ?)
-           ("\"DONE\"      " . ?)
-           ("State \"DONE\"" . ?)
-           ("State \"KILL\"" . ?󰜺)
-           ("\"KILL\"      " . ?󰜺)
-           ("\"WAIT\"      " . ?)
-           ("State \"WAIT\"" . ?)
-           ("\"INT\"       " . ?)
-           ("State \"INT\" " . ?)
-           ("\"WIP\"       " . ?󰒡)
-           ("State \"WIP\" " . ?󰒡)
-           ("\"PROG\"      " . ?)
-           ("State \"PROG\"" . ?)
-           ("\"DELE\"      " . ?)
-           ("State \"DELE\"" . ?)
-           ("\"CHCK\"      " . ?󰄭)
-           ("State \"CHCK\"" . ?󰄭)
-           ("\\\\" .           ?)
-           (" \\\\" .          ?)))
+           ("Note taken on"    . ?󰎜)
+           ("       from "     . ?)
+           ("\"TODO\"      "   . ?) ; TODO
+           ("State \"TODO\""   . ?)
+           ("\"DONE\"      "   . ?) ; DONE
+           ("State \"DONE\""   . ?)
+           ("\"KILL\"      "   . ?󰜺) ; KILL
+           ("State \"KILL\""   . ?󰜺)
+           ("\"HOLD\"      "   . ?) ; HOLD
+           ("State \"HOLD\""   . ?)
+           ("\"DRAFT\"       " . ?󰒡) ; DRAFT
+           ("State \"DRAFT\" " . ?󰒡)
+           ("\"STRT\"      "   . ?) ; STRT
+           ("State \"STRT\""   . ?)
+           ("\\\\"             . ?)
+           (" \\\\"            . ?)))
    (prettify-symbols-mode)))
 #+end_src
 
