@@ -644,3 +644,21 @@ Override the =C-i= on ~org-mode~, which is calling ~org-cycle~.
 #+begin_src emacs-lisp
 (global-set-key (kbd "C-i") #'better-jumper-jump-forward)
 #+end_src
+
+
+* Nim
+Enable LSP mode
+#+begin_src emacs-lisp
+(add-hook! 'nim-mode-hook #'lsp!)
+#+end_src
+
+
+* Email
+#+begin_src emacs-lisp
+(after! mu4e
+  (setq sendmail-program (executable-find "msmtp")
+        send-mail-function #'smtpmail-send-it
+        message-sendmail-f-is-evil t
+        message-sendmail-extra-arguments '("--read-envelope-from")
+        message-send-mail-function #'message-send-mail-with-sendmail))
+#+end_src
