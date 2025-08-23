@@ -30,8 +30,9 @@ Focus Mode
 
 Rainbow delimiters for parenthesis and brackets[fn:: [[https://github.com/Fanael/rainbow-delimiters/blob/f40ece58df8b2f0fb6c8576b527755a552a5e763/rainbow-delimiters.el#L61][rainbow-delimiters/rainbow-delimiters.el at f40ece58df8b2f0fb6c8576b527755a55...]]]
 #+begin_src emacs-lisp
-(add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
-(add-hook 'org-mode-hook #'rainbow-delimiters-mode) ;; Just because this file is mainly elisp
+(after! rainbow-delimiters
+  (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
+  (add-hook 'org-mode-hook #'rainbow-delimiters-mode))
 #+end_src
 
 
@@ -208,9 +209,9 @@ Capturing
 #+end_src
 
 ** Org Modern
-Disable things
+Disable confliting things with [[*Prettify Symbols][Prettify Symbols]]
 #+begin_src emacs-lisp
-(after! org-modern
+(after! org-modern ;; REVIEW: Should this wait load?
   (setq org-modern-checkbox nil
         org-modern-block-name nil
         org-modern-keyword nil))
@@ -228,8 +229,11 @@ Tasks
  '((?A . "")
    (?B . "")
    (?C . "")
-   (?D . ""))
- org-modern-progress 8)
+   (?D . "")))
+#+end_src
+Cookies
+#+begin_src emacs-lisp
+(setq org-modern-progress 8)
 #+end_src
 
 ** Prettify Symbols
