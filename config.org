@@ -10,9 +10,7 @@
 * Appearance
 Theme
 #+begin_src emacs-lisp
-(setq
- doom-theme (if (string= (system-name) "fed1")
-                'doom-tokyo-night 'doom-ir-black))
+(setq doom-theme 'doom-ir-black)
 #+end_src
 Line Numbers
 #+begin_src emacs-lisp
