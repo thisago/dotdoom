@@ -8,26 +8,32 @@
 
 
 * Appearance
-** Theme
+Theme
 #+begin_src emacs-lisp
 (setq
  doom-theme (if (string= (system-name) "fed1")
                 'doom-tokyo-night 'doom-ir-black))
 #+end_src
-** Line Numbers
+Line Numbers
 #+begin_src emacs-lisp
 (setq display-line-numbers-type 'relative)
 #+end_src
 
-** Column Indicator
+Column Indicator
 An visual indicator to avoid lengthy lines
 #+begin_src emacs-lisp
 (setq display-fill-column-indicator t)
 #+end_src
 
-** Focus Mode
+Focus Mode
 #+begin_src emacs-lisp
 (global-set-key (kbd "M-f") #'focus-mode)
+#+end_src
+
+Rainbow delimiters for parenthesis and brackets[fn:: [[https://github.com/Fanael/rainbow-delimiters/blob/f40ece58df8b2f0fb6c8576b527755a552a5e763/rainbow-delimiters.el#L61][rainbow-delimiters/rainbow-delimiters.el at f40ece58df8b2f0fb6c8576b527755a55...]]]
+#+begin_src emacs-lisp
+(add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
+(add-hook 'org-mode-hook #'rainbow-delimiters-mode) ;; Just because this file is mainly elisp
 #+end_src
 
 
@@ -372,6 +378,25 @@ As =^S= is the same escape key code for =C-s= and =C-S= on terminal, we use =M-s
   (define-key isearch-mode-map (kbd "M-S") #'isearch-repeat-forward))
 #+end_src
 
+** Subword Mode
+Smarter snapping with =C-<arrow>=.
+
+Enable on visual mode and disables it on exit.
+#+begin_src emacs-lisp
+(add-hook 'evil-insert-state-entry-hook
+          (lambda ()
+            (subword-mode 1)))
+(add-hook 'evil-insert-state-exit-hook
+          (lambda ()
+            (subword-mode -1)))
+#+end_src
+
+** Better Jumper
+Override the =C-i= on ~org-mode~, which is calling ~org-cycle~.
+#+begin_src emacs-lisp
+(global-set-key (kbd "C-i") #'better-jumper-jump-forward)
+#+end_src
+
 
 * Fold
 #+begin_src emacs-lisp
@@ -542,25 +567,7 @@ Add =M-RET= keybind to open the diff point at cursor in a new window.
 #+end_src
 
 
-* Indent Level
-Typescript
-#+begin_src emacs-lisp
-#+end_src
-
-
-* Subword Mode
-Enable on visual mode and disables it on exit.
-#+begin_src emacs-lisp
-(add-hook 'evil-insert-state-entry-hook
-          (lambda ()
-            (subword-mode 1)))
-(add-hook 'evil-insert-state-exit-hook
-          (lambda ()
-            (subword-mode -1)))
-#+end_src
-
-
-* Dape
+* TODO Debugging (dape)
 #+begin_src emacs-lisp
 (after! dape
   (setq dape-adapter-dir (concat user-emacs-directory "debug-adapters"))
@@ -583,7 +590,7 @@ Enable on visual mode and disables it on exit.
 #+end_src
 
 
-* Apheleia
+* Formatting (apheleia)
 Enable formatter for SH. See [[https://github.com/radian-software/apheleia//commit/93d2b30dd08c43edde6bdbbd36f42da751bc0975][Do not enable shfmt by default · radian-software/apheleia@93d2b30 · GitHub]]
 #+begin_src emacs-lisp
 (after! apheleia
@@ -596,7 +603,9 @@ Enforce Typescript indent level
 #+end_src
 
 
-* browse-at-remote
+* Versioning
+** browse-at-remote custom host
+Enable custom host. Requires [[https://github.com/thisago/browse-at-remote/compare/76aa27d...afa61c6][a patch]] to work on Gitea.
 #+begin_src emacs-lisp
 (after! browse-at-remote
   (add-to-list 'browse-at-remote-remote-type-regexps
@@ -607,14 +616,8 @@ Enforce Typescript indent level
 #+end_src
 
 
-* Better Jumper
-Override the =C-i= on ~org-mode~, which is calling ~org-cycle~.
-#+begin_src emacs-lisp
-(global-set-key (kbd "C-i") #'better-jumper-jump-forward)
-#+end_src
-
-
 * Email
+Setup mu4e with =msmtp= for sending and =offlineimap= for fetching.
 #+begin_src emacs-lisp
 (after! mu4e
   (setq sendmail-program (executable-find "msmtp")
