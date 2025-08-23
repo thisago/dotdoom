@@ -46,3 +46,4 @@
 (package! drag-stuff) ;; https://github.com/doomemacs/doomemacs/issues/8057#issuecomment-2337584180
 (package! magit-delta)
 (package! org-timeline)
+(package! rainbow-delimiters)

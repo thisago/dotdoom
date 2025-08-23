@@ -3,8 +3,10 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(package-selected-packages '(rainbow-delimiters org-timeline ob-aider calfw-org calfw))
  '(safe-local-variable-values
-    '((eval load-file "create-track.el") (org-md-footnote-format . "%s")
+    '((eval load-file "create-track.el")
+       (org-md-footnote-format . "%s")
        (gac-automatically-add-new-files-p . t))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.

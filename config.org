@@ -25,6 +25,11 @@ An visual indicator to avoid lengthy lines
 (setq display-fill-column-indicator t)
 #+end_src
 
+** Focus Mode
+#+begin_src emacs-lisp
+(global-set-key (kbd "M-f") #'focus-mode)
+#+end_src
+
 
 * Org Mode
 #+begin_src emacs-lisp :exports none
@@ -332,16 +337,21 @@ Enable =phscroll=
 #+end_src
 
 
-* Evil
-** Keybinds
+* Movement
+** Evil keybinds
+By default it seems the =C-e= moves the screen when in normal mode, this is weird as I am adapted to use it to jump to the end of the line.
 #+begin_src emacs-lisp
 (after! evil
   (define-key evil-motion-state-map (kbd "C-e") 'doom/forward-to-last-non-comment-or-eol))
 #+end_src
 
+Flycheck next/Previous error
+#+begin_src emacs-lisp
+(general-evil-define-key 'normal 'global-map :prefix "[" "e" 'flycheck-previous-error)
+(general-evil-define-key 'normal 'global-map :prefix "]" "e" 'flycheck-next-error)
+#+end_src
 
-
-* Drag Stuff
+** Drag Stuff
 https://github.com/doomemacs/doomemacs/commit/816db4a62addf7ac5e658123ba081069d224d310#diff-9cb538cec4592d2ce91c563cca1a9486c13b5af564c30fb9844f8001d61a00d0R593
 #+begin_src emacs-lisp
 (use-package! drag-stuff
@@ -351,6 +361,15 @@ https://github.com/doomemacs/doomemacs/commit/816db4a62addf7ac5e658123ba081069d2
         "<M-down>"  #'drag-stuff-down
         "<M-left>"  #'drag-stuff-left
         "<M-right>" #'drag-stuff-right))
+#+end_src
+
+** Isearch
+As =^S= is the same escape key code for =C-s= and =C-S= on terminal, we use =M-s= to search backwards.
+#+begin_src emacs-lisp
+(define-key global-map (kbd "M-s") 'isearch-backward)
+(after! isearch
+  (define-key isearch-mode-map (kbd "M-s") #'isearch-repeat-backward)
+  (define-key isearch-mode-map (kbd "M-S") #'isearch-repeat-forward))
 #+end_src
 
 
@@ -366,19 +385,6 @@ https://github.com/doomemacs/doomemacs/commit/816db4a62addf7ac5e658123ba081069d2
 #+end_src
 
 
-* Search
-** Isearch
-#+begin_src emacs-lisp
-(define-key global-map (kbd "M-s") 'isearch-backward)
-#+end_src
-As =^S= is the same escape key code for =C-s= and =C-S=, we use =M-s= to search backwards.
-#+begin_src emacs-lisp
-(after! isearch
-  (define-key isearch-mode-map (kbd "M-s") #'isearch-repeat-backward)
-  (define-key isearch-mode-map (kbd "M-S") #'isearch-repeat-forward))
-#+end_src
-
-
 * Privacy
 ** Url Lib
 Obfuscate user agent
@@ -389,7 +395,34 @@ Obfuscate user agent
 #+end_src
 
 
-* Work
+* Browser (eww)
+Keybinds
+#+begin_src emacs-lisp
+(define-key global-map (kbd "C-c e") 'eww)
+
+(after! eww
+  (define-key eww-mode-map (kbd "C-c l") 'eww-copy-page-url)
+  (define-key eww-mode-map (kbd "C-c r") 'eww-reload)
+  (add-hook 'eww-mode-hook 'display-line-numbers-mode))
+#+end_src
+
+Set as default browser
+#+begin_src emacs-lisp
+(setq browse-url-browser-function 'eww-browse-url)
+#+end_src
+
+Auto-rename new eww buffers to allow multiple sessions
+#+begin_src emacs-lisp
+(defun eww-rename-buffer-hook ()
+  "Rename eww browser's buffer so sites open in new page."
+  (rename-buffer "eww" t))
+
+(after! eww
+  (add-hook 'eww-mode-hook #'eww-rename-buffer-hook))
+#+end_src
+
+
+* Work Only
 #+begin_src emacs-lisp :exports none
 (when (string= (system-name) "work")
 #+end_src
@@ -399,12 +432,12 @@ Obfuscate user agent
   :hook (prog-mode . copilot-mode)
   :bind (("C-c M-f" . copilot-complete)
          :map copilot-completion-map
-         ("C-g" . 'copilot-clear-overlay)
-         ("M-p" . 'copilot-previous-completion)
-         ("M-n" . 'copilot-next-completion)
-         ("<tab>" . 'copilot-accept-completion)
-         ("TAB" . 'copilot-accept-completion)
-         ("M-f" . 'copilot-accept-completion-by-word)
+         ("C-g"        . 'copilot-clear-overlay)
+         ("M-p"        . 'copilot-previous-completion)
+         ("M-n"        . 'copilot-next-completion)
+         ("<tab>"      . 'copilot-accept-completion)
+         ("TAB"        . 'copilot-accept-completion)
+         ("M-f"        . 'copilot-accept-completion-by-word)
          ("M-<return>" . 'copilot-accept-completion-by-line))
 
   :config
@@ -475,67 +508,12 @@ Obfuscate user agent
 #+end_src
 
 
-* LSP
-#+begin_src emacs-lisp
-(general-evil-define-key 'normal 'global :prefix "SPC" "c R" 'lsp-restart-workspace)
-
-(setq
- lsp-modeline-code-actions-enable t
- lsp-modeline-diagnostics-enable t
- lsp-lens-enable t
- lsp-semantic-tokens-enable t
- lsp-headerline-breadcrumb-enable t
- lsp-eslint-format t
- lsp-typescript-format-enable nil
- lsp-javascript-format-enable nil
- lsp-bash-highlight-parsing-errors t)
-#+end_src
-As the formatting is throwing an error, and [[https://github.com/thisago/lsp-mode/commit/f0fb8f3025c5e208250fe70c41c8aa364823c130][I was not yet able to solve]],
-#+begin_example
-No catch for tag: --cl-block-nil--, nil
-#+end_example
-
-I'll disable LSP for CSS manually (as the [[file:init.el::web]] is configured with ~+lsp~):
-#+begin_src emacs-lisp
-(remove-hook! 'css-mode-local-vars-hook #'lsp!)
-(remove-hook! 'scss-mode-local-vars-hook #'lsp!)
-(remove-hook! 'sass-mode-local-vars-hook #'lsp!)
-(remove-hook! 'less-css-mode-local-vars-hook #'lsp!)
-#+end_src
-
-
-* EWW
-Keybinds
-#+begin_src emacs-lisp
-(define-key global-map (kbd "C-c e") 'eww)
-
-(after! eww
-  (define-key eww-mode-map (kbd "C-c l") 'eww-copy-page-url)
-  (define-key eww-mode-map (kbd "C-c r") 'eww-reload)
-  (add-hook 'eww-mode-hook 'display-line-numbers-mode))
-#+end_src
-
-Default browser
-#+begin_src emacs-lisp
-(setq browse-url-browser-function 'eww-browse-url)
-#+end_src
-
-Auto-rename new eww buffers allowing multiple sessions
-#+begin_src emacs-lisp
-(defun eww-rename-buffer-hook ()
-  "Rename eww browser's buffer so sites open in new page."
-  (rename-buffer "eww" t))
-
-(after! eww
-  (add-hook 'eww-mode-hook #'eww-rename-buffer-hook))
-#+end_src
-
-
 * Spell checking
 Keybinds
 #+begin_src emacs-lisp
 (define-key global-map (kbd "C-c d") 'ispell-change-dictionary)
 #+end_src
+
 Enable on YAML mode
 #+begin_src emacs-lisp
 (after! yaml-mode
@@ -543,20 +521,14 @@ Enable on YAML mode
 #+end_src
 
 
-* Focus Mode
-#+begin_src emacs-lisp
-(global-set-key (kbd "M-f") #'focus-mode)
-#+end_src
-
-
 * Magit
-** Keybinds
-Go to file in a new window
+** Diff
+Add =M-RET= keybind to open the diff point at cursor in a new window.
 #+begin_src emacs-lisp
 (after! magit
   (define-key magit-diff-mode-map (kbd "M-RET") 'magit-diff-visit-worktree-file-other-window))
 #+end_src
-** Diff
+
 [[https://github.com/magit/magit/issues/2942#issuecomment-1026201640][Syntax highlighting]]
 #+begin_src emacs-lisp
 (use-package! magit-delta
@@ -573,7 +545,6 @@ Go to file in a new window
 * Indent Level
 Typescript
 #+begin_src emacs-lisp
-(setq typescript-indent-level 2)
 #+end_src
 
 
@@ -619,12 +590,9 @@ Enable formatter for SH. See [[https://github.com/radian-software/apheleia//comm
   (add-to-list 'apheleia-mode-alist '(sh-mode . shfmt)))
 #+end_src
 
-
-* Flycheck
-Next/Previous error
+Enforce Typescript indent level
 #+begin_src emacs-lisp
-(general-evil-define-key 'normal 'global-map :prefix "[" "e" 'flycheck-previous-error)
-(general-evil-define-key 'normal 'global-map :prefix "]" "e" 'flycheck-next-error)
+(setq typescript-indent-level 2)
 #+end_src
 
 
@@ -646,13 +614,6 @@ Override the =C-i= on ~org-mode~, which is calling ~org-cycle~.
 #+end_src
 
 
-* Nim
-Enable LSP mode
-#+begin_src emacs-lisp
-(add-hook! 'nim-mode-hook #'lsp!)
-#+end_src
-
-
 * Email
 #+begin_src emacs-lisp
 (after! mu4e
@@ -662,4 +623,42 @@ Enable LSP mode
         message-sendmail-extra-arguments '("--read-envelope-from")
         message-send-mail-function #'message-send-mail-with-sendmail
         mu4e-get-mail-command "offlineimap -o -q"))
+#+end_src
+
+
+* LSP
+Keybinds:
+#+begin_src emacs-lisp
+(general-evil-define-key 'normal 'global :prefix "SPC" "c R" 'lsp-restart-workspace)
+#+end_src
+
+General LSP client configs
+#+begin_src emacs-lisp
+(setq
+ lsp-modeline-code-actions-enable t
+ lsp-modeline-diagnostics-enable t
+ lsp-lens-enable t
+ lsp-semantic-tokens-enable t
+ lsp-headerline-breadcrumb-enable t
+ lsp-eslint-format t
+ lsp-typescript-format-enable nil
+ lsp-javascript-format-enable nil
+ lsp-bash-highlight-parsing-errors t)
+#+end_src
+
+As the formatting is currently throwing an error for CSS/SASS mode:
+#+begin_example
+No catch for tag: --cl-block-nil--, nil
+#+end_example
+And [[https://github.com/thisago/lsp-mode/commit/f0fb8f3025c5e208250fe70c41c8aa364823c130][I was not yet able to solve]], I'll disable LSP for CSS manually (as the [[file:init.el::web][(web +lsp)]] automatically enables for CSS):
+#+begin_src emacs-lisp
+(remove-hook! 'css-mode-local-vars-hook #'lsp!)
+(remove-hook! 'scss-mode-local-vars-hook #'lsp!)
+(remove-hook! 'sass-mode-local-vars-hook #'lsp!)
+(remove-hook! 'less-css-mode-local-vars-hook #'lsp!)
+#+end_src
+
+Enable LSP on Nim.
+#+begin_src emacs-lisp
+(add-hook! 'nim-mode-hook #'lsp!)
 #+end_src
