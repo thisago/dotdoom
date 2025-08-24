@@ -3,7 +3,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-selected-packages '(calfw-org calfw))
+ '(package-selected-packages '(rainbow-delimiters org-timeline ob-aider calfw-org calfw))
  '(safe-local-variable-values
     '((eval load-file "create-track.el")
        (org-md-footnote-format . "%s")
