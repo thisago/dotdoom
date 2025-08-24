@@ -8,7 +8,7 @@
 (unpin! browse-at-remote)
 (package! browse-at-remote
   :recipe (:host github :repo "thisago/browse-at-remote" :files ("*.el"))
-  :pin "cb1fb79a6b164c41ca25cbbb65bd1d4a7cb9a946")
+  :pin "afa61c635bf1c5b6554c4e7e685fb8e0551b97e8")
 (package! ox-gfm)
 (package! phscroll :recipe (:host github :repo "misohena/phscroll" :files ("*.el")))
 (package! lorem-ipsum)
@@ -22,8 +22,7 @@
   (package! copilot-chat
     :recipe (:host github :repo "chep/copilot-chat.el" :files ("*.el") :branch "master"))
   (package! ts)
-  (package! websocket)
-  (package! aidermacs))
+  (package! websocket))
 
 (package! org-transclusion)
 (package! org-transclusion-http)
