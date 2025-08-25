@@ -344,6 +344,18 @@ Enable =phscroll=
 ) ;; End of (after! org)
 #+end_src
 
+** Org Transclusion
+#+begin_src emacs-lisp
+(after! org-transclusion
+  (map!
+   :map global-map "<f12>" #'org-transclusion-add
+   :leader
+   :prefix "n"
+   :desc "Org Transclusion Mode" "t" #'org-transclusion-mode)
+  (add-to-list 'org-transclusion-extensions 'org-transclusion-http)
+  (require 'org-transclusion-http))
+#+end_src
+
 
 * Movement
 ** Evil keybinds
