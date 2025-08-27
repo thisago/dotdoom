@@ -668,3 +668,18 @@ Enable LSP on Nim.
 #+begin_src emacs-lisp
 (add-hook! 'nim-mode-hook #'lsp!)
 #+end_src
+
+
+* IRC
+#+begin_src emacs-lisp
+(after! circe
+  (setq circe-network-options
+        `((,(concat "Libera Chat - " (+pass-get-user "emacs/irc"))
+           :tls t
+           :host "irc.libera.chat"
+           :port 6697
+           :nick ,(+pass-get-user "emacs/irc")
+           :sasl-username ,(+pass-get-user "emacs/irc")
+           :sasl-password ,(+pass-get-secret "emacs/irc")
+           :channels nil))))
+#+end_src
