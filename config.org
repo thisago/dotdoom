@@ -614,7 +614,7 @@ Enable custom host. Requires [[https://github.com/thisago/browse-at-remote/compa
   (add-to-list 'browse-at-remote-remote-type-regexps
                `(:host "^vf$"
                  :type "gitea"
-                 :actual-host "192.168.240.1:3000")) ;; TODO: Move this IP to env
+                 :actual-host ,(getenv "EMACS_VF_HOST")))
   (add-to-list 'browse-at-remote-use-http "vf"))
 #+end_src
 
