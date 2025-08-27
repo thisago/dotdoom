@@ -570,7 +570,7 @@ Add =M-RET= keybind to open the diff point at cursor in a new window.
 #+end_src
 
 
-* TODO Debugging (dape)
+* TODO Debugging (dape) :ARCHIVE:
 #+begin_src emacs-lisp
 (after! dape
   (setq dape-adapter-dir (concat user-emacs-directory "debug-adapters"))
