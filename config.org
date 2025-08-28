@@ -463,7 +463,7 @@ Auto-rename new eww buffers to allow multiple sessions
 
 * Work Only
 #+begin_src emacs-lisp :exports none
-(when (string= (system-name) "work")
+(when (string-match (regexp-quote "work") (system-name))
 #+end_src
 ** Copilot
 #+begin_src emacs-lisp

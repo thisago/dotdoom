@@ -14,7 +14,7 @@
 (package! lorem-ipsum)
 (package! rainbow-mode)
 
-(when (string= (system-name) "work")
+(when (string-match (regexp-quote "work") (system-name))
   (package! copilot
     :recipe (:host github :repo "copilot-emacs/copilot.el" :files ("*.el")))
   (package! emacs-slack
