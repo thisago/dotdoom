@@ -3,26 +3,24 @@
 
 ;; TODO: Tangle from Org config.org file
 
-(package! git-auto-commit-mode)
-(package! dape)
 (unpin! browse-at-remote)
 (package! browse-at-remote
   :recipe (:host github :repo "thisago/browse-at-remote" :files ("*.el"))
   :pin "afa61c635bf1c5b6554c4e7e685fb8e0551b97e8")
+
+(package! git-auto-commit-mode)
+(package! dape)
 (package! ox-gfm)
 (package! phscroll :recipe (:host github :repo "misohena/phscroll" :files ("*.el")))
 (package! lorem-ipsum)
 (package! rainbow-mode)
 
-(when (string-match (regexp-quote "work") (system-name))
-  (package! copilot
-    :recipe (:host github :repo "copilot-emacs/copilot.el" :files ("*.el")))
-  (package! emacs-slack
-    :recipe (:host github :repo "emacs-slack/emacs-slack" :files ("*.el")))
-  (package! copilot-chat
-    :recipe (:host github :repo "chep/copilot-chat.el" :files ("*.el") :branch "master"))
-  (package! ts)
-  (package! websocket))
+(package! copilot
+  :recipe (:host github :repo "copilot-emacs/copilot.el" :files ("*.el")))
+(package! emacs-slack
+  :recipe (:host github :repo "emacs-slack/emacs-slack" :files ("*.el")))
+(package! ts)
+(package! websocket)
 
 (package! org-transclusion)
 (package! org-transclusion-http)

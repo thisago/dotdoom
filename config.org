@@ -461,78 +461,8 @@ Auto-rename new eww buffers to allow multiple sessions
 #+end_src
 
 
-* Work Only
 #+begin_src emacs-lisp :exports none
-(when (string-match (regexp-quote "work") (system-name))
-#+end_src
-** Copilot
-#+begin_src emacs-lisp
-(use-package! copilot
-  :hook (prog-mode . copilot-mode)
-  :bind (("C-c M-f" . copilot-complete)
-         :map copilot-completion-map
-         ("C-g"        . 'copilot-clear-overlay)
-         ("M-p"        . 'copilot-previous-completion)
-         ("M-n"        . 'copilot-next-completion)
-         ("<tab>"      . 'copilot-accept-completion)
-         ("TAB"        . 'copilot-accept-completion)
-         ("M-f"        . 'copilot-accept-completion-by-word)
-         ("M-<return>" . 'copilot-accept-completion-by-line))
 
-  :config
-  (add-to-list 'copilot-indentation-alist '(prog-mode 2))
-  (add-to-list 'copilot-indentation-alist '(org-mode 2))
-  (add-to-list 'copilot-indentation-alist '(text-mode 2)))
-#+end_src
-
-** Slack Client
-*** Slack Secrets
-#+begin_src emacs-lisp
-(use-package! emacs-slack
-  :defer nil
-  :bind (("C-c S K" . slack-stop)
-         ("C-c S c" . slack-select-rooms)
-         ("C-c S u" . slack-select-unread-rooms)
-         ("C-c S U" . slack-user-select)
-         ("C-c S s" . slack-search-from-messages)
-         ("C-c S J" . slack-jump-to-browser)
-         ("C-c S j" . slack-jump-to-app)
-         ("C-c S e" . slack-insert-emoji)
-         ("C-c S E" . slack-message-edit)
-         ("C-c S r" . slack-message-add-reaction)
-         ("C-c S t" . slack-thread-show-or-create)
-         ("C-c S g" . slack-message-redisplay)
-         ("C-c S G" . slack-conversations-list-update-quick)
-         ("C-c S q" . slack-quote-and-reply)
-         ("C-c S Q" . slack-quote-and-reply-with-link)
-         (:map slack-mode-map
-               (("@" . slack-message-embed-mention)
-                ("#" . slack-message-embed-channel)))
-         (:map slack-thread-message-buffer-mode-map
-               (("C-c '" . slack-message-write-another-buffer)
-                ("@" . slack-message-embed-mention)
-                ("#" . slack-message-embed-channel)))
-         (:map slack-message-buffer-mode-map
-               (("C-c '" . slack-message-write-another-buffer)))
-         (:map slack-message-compose-buffer-mode-map
-               (("C-c '" . slack-message-send-from-buffer))))
-  :config
-  (slack-register-team
-   :token (+pass-get-secret "emacs/slack/token")
-   :cookie (+pass-get-secret "emacs/slack/cookie")
-   :full-and-display-names t
-   :default t
-   :subscribed-channels nil))
-
-(use-package! alert
-  :commands (alert)
-  :init
-  (setq alert-default-style 'notifier))
-#+end_src
-
-** End of work config
-#+begin_src emacs-lisp :exports none
-)
 #+end_src
 
 
@@ -670,16 +600,86 @@ Enable LSP on Nim.
 #+end_src
 
 
-* IRC
+* Communication
+** Slack
 #+begin_src emacs-lisp
-(after! circe
-  (setq circe-network-options
-        `((,(concat "Libera Chat - " (+pass-get-user "emacs/irc"))
-           :tls t
-           :host "irc.libera.chat"
-           :port 6697
-           :nick ,(+pass-get-user "emacs/irc")
-           :sasl-username ,(+pass-get-user "emacs/irc")
-           :sasl-password ,(+pass-get-secret "emacs/irc")
-           :channels nil))))
+(when (string= (getenv "EMACS_ENABLE_SLACK") "true")
+  (use-package! emacs-slack
+    :defer nil
+    :bind (("C-c S K" . slack-stop)
+           ("C-c S c" . slack-select-rooms)
+           ("C-c S u" . slack-select-unread-rooms)
+           ("C-c S U" . slack-user-select)
+           ("C-c S s" . slack-search-from-messages)
+           ("C-c S J" . slack-jump-to-browser)
+           ("C-c S j" . slack-jump-to-app)
+           ("C-c S e" . slack-insert-emoji)
+           ("C-c S E" . slack-message-edit)
+           ("C-c S r" . slack-message-add-reaction)
+           ("C-c S t" . slack-thread-show-or-create)
+           ("C-c S g" . slack-message-redisplay)
+           ("C-c S G" . slack-conversations-list-update-quick)
+           ("C-c S q" . slack-quote-and-reply)
+           ("C-c S Q" . slack-quote-and-reply-with-link)
+           (:map slack-mode-map
+                 (("@" . slack-message-embed-mention)
+                  ("#" . slack-message-embed-channel)))
+           (:map slack-thread-message-buffer-mode-map
+                 (("C-c '" . slack-message-write-another-buffer)
+                  ("@" . slack-message-embed-mention)
+                  ("#" . slack-message-embed-channel)))
+           (:map slack-message-buffer-mode-map
+                 (("C-c '" . slack-message-write-another-buffer)))
+           (:map slack-message-compose-buffer-mode-map
+                 (("C-c '" . slack-message-send-from-buffer))))
+    :config
+    ;; TODO: Instead of conditionally enabling Slack, make it loop over all keys on emacs/slack/*/. The absence means not enabled
+    (slack-register-team
+     :token (+pass-get-secret "emacs/slack/token")
+     :cookie (+pass-get-secret "emacs/slack/cookie")
+     :full-and-display-names t
+     :default t
+     :subscribed-channels nil))
+
+  (use-package! alert
+    :commands (alert)
+    :init
+    (setq alert-default-style 'notifier)))
+#+end_src
+** IRC
+#+begin_src emacs-lisp
+(when (string= (getenv "EMACS_ENABLE_IRC") "true")
+  (after! circe
+    (setq circe-network-options
+          `((,(concat "Libera Chat - " (+pass-get-user "emacs/irc"))
+             :tls t
+             :host "irc.libera.chat"
+             :port 6697
+             :nick ,(+pass-get-user "emacs/irc")
+             :sasl-username ,(+pass-get-user "emacs/irc")
+             :sasl-password ,(+pass-get-secret "emacs/irc")
+             :channels nil)))))
+#+end_src
+
+
+* LLM
+** Copilot
+#+begin_src emacs-lisp
+(when (string= (getenv "EMACS_ENABLE_COPILOT") "true")
+  (use-package! copilot
+    :hook (prog-mode . copilot-mode)
+    :bind (("C-c M-f" . copilot-complete)
+           :map copilot-completion-map
+           ("C-g"        . 'copilot-clear-overlay)
+           ("M-p"        . 'copilot-previous-completion)
+           ("M-n"        . 'copilot-next-completion)
+           ("<tab>"      . 'copilot-accept-completion)
+           ("TAB"        . 'copilot-accept-completion)
+           ("M-f"        . 'copilot-accept-completion-by-word)
+           ("M-<return>" . 'copilot-accept-completion-by-line))
+
+    :config
+    (add-to-list 'copilot-indentation-alist '(prog-mode 2))
+    (add-to-list 'copilot-indentation-alist '(org-mode 2))
+    (add-to-list 'copilot-indentation-alist '(text-mode 2))))
 #+end_src
