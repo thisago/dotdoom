@@ -461,11 +461,6 @@ Auto-rename new eww buffers to allow multiple sessions
 #+end_src
 
 
-#+begin_src emacs-lisp :exports none
-
-#+end_src
-
-
 * Spell checking
 Keybinds
 #+begin_src emacs-lisp
