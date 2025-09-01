@@ -678,3 +678,10 @@ Enable LSP on Nim.
     (add-to-list 'copilot-indentation-alist '(org-mode 2))
     (add-to-list 'copilot-indentation-alist '(text-mode 2))))
 #+end_src
+
+
+* Kubernetes
+#+begin_src emacs-lisp
+(after! kubernetes
+  (general-evil-define-key 'normal 'global-map :prefix "SPC" "k k" 'kubernetes-overview))
+#+end_src

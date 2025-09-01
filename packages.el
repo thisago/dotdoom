@@ -44,3 +44,6 @@
 (package! magit-delta)
 (package! org-timeline)
 (package! guix)
+(package! kubernetes)
+(package! kubernetes-evil)
+(package! rainbow-delimiters)
