@@ -626,6 +626,8 @@ Enable LSP on Nim.
            (:map slack-thread-message-buffer-mode-map
                  (("C-c '" . slack-message-write-another-buffer)
                   ("@" . slack-message-embed-mention)
+                  ("M-p" . slack-buffer-goto-prev-message)
+                  ("M-n" . slack-buffer-goto-next-message)
                   ("#" . slack-message-embed-channel)))
            (:map slack-message-buffer-mode-map
                  (("C-c '" . slack-message-write-another-buffer)))
