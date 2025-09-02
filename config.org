@@ -626,11 +626,11 @@ Enable LSP on Nim.
            (:map slack-thread-message-buffer-mode-map
                  (("C-c '" . slack-message-write-another-buffer)
                   ("@" . slack-message-embed-mention)
-                  ("M-p" . slack-buffer-goto-prev-message)
-                  ("M-n" . slack-buffer-goto-next-message)
                   ("#" . slack-message-embed-channel)))
            (:map slack-message-buffer-mode-map
-                 (("C-c '" . slack-message-write-another-buffer)))
+                 (("C-c '" . slack-message-write-another-buffer)
+                  ("M-p" . slack-buffer-goto-prev-message)
+                  ("M-n" . slack-buffer-goto-next-message)))
            (:map slack-message-compose-buffer-mode-map
                  (("C-c '" . slack-message-send-from-buffer))))
     :config
@@ -647,6 +647,7 @@ Enable LSP on Nim.
     :init
     (setq alert-default-style 'notifier)))
 #+end_src
+
 ** IRC
 #+begin_src emacs-lisp
 (when (string= (getenv "EMACS_ENABLE_IRC") "true")
