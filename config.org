@@ -474,27 +474,6 @@ Enable on YAML mode
 #+end_src
 
 
-* Magit
-** Diff
-Add =M-RET= keybind to open the diff point at cursor in a new window.
-#+begin_src emacs-lisp
-(after! magit
-  (define-key magit-diff-mode-map (kbd "M-RET") 'magit-diff-visit-worktree-file-other-window))
-#+end_src
-
-[[https://github.com/magit/magit/issues/2942#issuecomment-1026201640][Syntax highlighting]]
-#+begin_src emacs-lisp
-(use-package! magit-delta
-  :after magit
-  :config
-  (setq
-   magit-delta-default-dark-theme "gruvbox-dark"
-   magit-delta-default-light-theme "Github"
-   magit-delta-hide-plus-minus-markers nil)
-  (magit-delta-mode))
-#+end_src
-
-
 * TODO Debugging (dape) :ARCHIVE:
 #+begin_src emacs-lisp
 (after! dape
@@ -547,6 +526,34 @@ Enable custom host. Requires [[https://github.com/thisago/browse-at-remote/compa
   (add-to-list 'browse-at-remote-use-http "vf"))
 #+end_src
 
+** Magit
+*** Diff
+Add =M-RET= keybind to open the diff point at cursor in a new window.
+#+begin_src emacs-lisp
+(after! magit
+  (define-key magit-diff-mode-map (kbd "M-RET") 'magit-diff-visit-worktree-file-other-window))
+#+end_src
+
+[[https://github.com/magit/magit/issues/2942#issuecomment-1026201640][Syntax highlighting]]
+#+begin_src emacs-lisp
+(use-package! magit-delta
+  :after magit
+  :config
+  (setq
+   magit-delta-default-dark-theme "gruvbox-dark"
+   magit-delta-default-light-theme "Github"
+   magit-delta-hide-plus-minus-markers nil)
+  (magit-delta-mode))
+#+end_src
+
+** Forge
+#+begin_src emacs-lisp
+(push `(,(getenv "EMACS_VF_HOST")                     ; GITHOST
+        ,(concat (getenv "EMACS_VF_HOST") "/api/v1")  ; APIHOST
+        ,(getenv "EMACS_VF_HOST")                     ; WEBHOST and INSTANCE-ID
+        forge-gitea-repository)                       ; CLASS
+      forge-alist)
+#+end_src
 
 * Email
 Setup mu4e with =msmtp= for sending and =offlineimap= for fetching.
