@@ -648,7 +648,6 @@ Add =M-RET= keybind to open the diff point at cursor in a new window.
   (magit-delta-mode))
 #+end_src
 
-
 * LSP
 Keybinds:
 #+begin_src emacs-lisp
