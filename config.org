@@ -357,6 +357,12 @@ Enable =phscroll=
 #+end_src
 
 
+* Auth Source
+#+begin_src emacs-lisp
+(auth-source-pass-enable)
+#+end_src
+
+
 * Movement
 ** Evil keybinds
 By default it seems the =C-e= moves the screen when in normal mode, this is weird as I am adapted to use it to jump to the end of the line.
