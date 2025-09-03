@@ -48,3 +48,4 @@
 (package! kubernetes-evil)
 (package! rainbow-delimiters)
 (package! forge)
+(package! orgit)
