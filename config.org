@@ -485,21 +485,92 @@ Enable on YAML mode
 (after! dape
   (setq dape-adapter-dir (concat user-emacs-directory "debug-adapters"))
 
+  (defun dape-vitest/find-file-buffer-default ()
+    "Read filename at project root, defaulting to current buffer. Return vector of vitest args to run said file"
+    (let ((file (dape-buffer-default)))
+      (if file
+          `["--no-coverage" ,file]
+        (user-error "No file found"))))
+
+  (defun dape-vitest/ensure (config)
+    "Ensure node is available, vitest is installed, that the dapDebugServer is installed"
+
+    (dape-ensure-command config)
+    (let ((cwd (dape-cwd))
+          (js-debug-file (expand-file-name
+                          (dape--config-eval-value (car (plist-get config 'command-args)))
+                          (dape--config-eval-value (plist-get config 'command-cwd))))
+          (node-vitest-file (expand-file-name
+                           (dape--config-eval-value (plist-get config :program))
+                           (dape--config-eval-value (plist-get config :cwd)))))
+      (unless (file-exists-p js-debug-file)
+        (user-error "Debug server file %S does not exist" js-debug-file))
+      (unless (file-exists-p node-vitest-file)
+        (user-error "Vitest executable not found at %S" node-vitest-file))))
+
+
   (add-to-list 'dape-configs
-               `(js-debug-chrome
-                 modes (js-mode js-ts-mode)
-	         command "node"
-                 command-cwd "/home/user/.config/emacs/debug-adapters/js-debug/")
-               command-args ("src/dapDebugServer.js" ,(format "%d" dape-configs-port))
-               port dape-configs-port
-               :type "pwa-chrome"
-               :name "Debug react"
-               :trace t
-               :url ,(lambda ()
-                       (read-string "Url: "
-                                    "http://localhost:3000"))
-               :webRoot dape-cwd-fn
-               :outputCapture "console"))
+               `(vitest
+                 modes (js-mode js-ts-mode typescript-mode)
+                 ensure dape-vitest/ensure
+                 command "node"
+                 command-cwd dape-command-cwd
+                 command-args (,(expand-file-name
+                                 (file-name-concat "/home/user/.config/emacs/debug-adapters/"
+                                                   "js-debug"
+                                                   "src"
+                                                   "dapDebugServer.js"))
+                               :autoport)
+                 port :autoport
+                 fn dape-config-autoport
+                 :type "pwa-node"
+                 :cwd dape-cwd
+                 :env ()
+                 :program "node_modules/.bin/vitest"
+                 :args dape-vitest/find-file-buffer-default
+                 :outputCapture "console"
+                 :sourceMapRenames t
+                 :pauseForSourceMap nil
+                 :autoAttachChildProcesses t
+                 :console "internalConsole"
+                 :outputCapture "std"
+                 :killBehavior "forceful")))
+#+end_src
+
+Hydra keybindings ([[https://github.com/svaante/dape/wiki#ergonomic-keybindings][Home · svaante/dape Wiki · GitHub]]):
+#+begin_src emacs-lisp
+(defun ccpp/post-init-hydra ()
+  (defhydra dape-hydra (:hint nil)
+    "
+^Stepping^           ^Breakpoints^               ^Info
+^^^^^^^^-----------------------------------------------------------
+_n_: Next            _bb_: Toggle (add/remove)   _si_: Info
+_i_/_o_: Step in/out   _bd_: Delete                _sm_: Memory
+_<_/_>_: Stack up/down _bD_: Delete all            _ss_: Select Stack
+_c_: Continue        _bl_: Set log message       _R_: Repl
+_r_: Restart
+            _d_: Init   _k_: Kill   _q_: Quit
+"
+    ("n" dape-next)
+    ("i" dape-step-in)
+    ("o" dape-step-out)
+    ("<" dape-stack-select-down)
+    (">" dape-stack-select-up)
+    ("c" dape-continue)
+    ("r" dape-restart)
+    ("ba" dape-breakpoint-toggle)
+    ("bb" dape-breakpoint-toggle)
+    ("be" dape-breakpoint-expression)
+    ("bd" dape-breakpoint-remove-at-point)
+    ("bD" dape-breakpoint-remove-all)
+    ("bl" dape-breakpoint-log)
+    ("si" dape-info)
+    ("sm" dape-read-memory)
+    ("ss" dape-select-stack)
+    ("R"  dape-repl)
+    ("d" dape)
+    ("k" dape-kill :color blue)
+    ("q" dape-quit :color blue)))
 #+end_src
 
 
