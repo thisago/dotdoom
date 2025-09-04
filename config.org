@@ -554,11 +554,12 @@ Add =M-RET= keybind to open the diff point at cursor in a new window.
 
 ** Forge
 #+begin_src emacs-lisp
-(push `(,(getenv "EMACS_VF_HOST")                     ; GITHOST
-        ,(concat (getenv "EMACS_VF_HOST") "/api/v1")  ; APIHOST
-        ,(getenv "EMACS_VF_HOST")                     ; WEBHOST and INSTANCE-ID
-        forge-gitea-repository)                       ; CLASS
-      forge-alist)
+(after! forge
+  (push `(,(getenv "EMACS_VF_HOST")                     ; GITHOST
+          ,(concat (getenv "EMACS_VF_HOST") "/api/v1")  ; APIHOST
+          ,(getenv "EMACS_VF_HOST")                     ; WEBHOST and INSTANCE-ID
+          forge-gitea-repository)                       ; CLASS
+        forge-alist))
 #+end_src
 
 * LSP
