@@ -480,7 +480,7 @@ Enable on YAML mode
 #+end_src
 
 
-* TODO Debugging (dape) :ARCHIVE:
+* TODO Debugging (dape)
 #+begin_src emacs-lisp
 (after! dape
   (setq dape-adapter-dir (concat user-emacs-directory "debug-adapters"))
@@ -501,8 +501,8 @@ Enable on YAML mode
                           (dape--config-eval-value (car (plist-get config 'command-args)))
                           (dape--config-eval-value (plist-get config 'command-cwd))))
           (node-vitest-file (expand-file-name
-                           (dape--config-eval-value (plist-get config :program))
-                           (dape--config-eval-value (plist-get config :cwd)))))
+                             (dape--config-eval-value (plist-get config :program))
+                             (dape--config-eval-value (plist-get config :cwd)))))
       (unless (file-exists-p js-debug-file)
         (user-error "Debug server file %S does not exist" js-debug-file))
       (unless (file-exists-p node-vitest-file)
@@ -534,7 +534,32 @@ Enable on YAML mode
                  :autoAttachChildProcesses t
                  :console "internalConsole"
                  :outputCapture "std"
-                 :killBehavior "forceful")))
+                 :killBehavior "forceful"))
+
+  (add-to-list 'dape-configs
+               `(delve
+                 modes (go-mode go-ts-mode)
+                 ensure dape-ensure-command
+                 fn (dape-config-autoport dape-config-tramp)
+                 command "dlv"
+                 command-insert-stderr t
+                 command-args ("dap" "--listen" "127.0.0.1::autoport")
+                 command-cwd (lambda()(if (string-suffix-p "_test.go" (buffer-name))
+                                          default-directory (dape-cwd)))
+                 port :autoport
+                 :type "debug"
+                 :request "launch"
+                 :mode (lambda() (if (string-suffix-p "_test.go" (buffer-name)) "test" "debug"))
+                 :program "."
+                 :cwd "."
+                 :args (lambda()
+                         (require 'which-func)
+                         (if (string-suffix-p "_test.go" (buffer-name))
+                             (when-let* ((test-name (which-function))
+                                         (test-regexp (concat "^" test-name "$")))
+                               (if test-name `["-test.run" ,test-regexp]
+                                 (error "No test selected")))
+                           [])))))
 #+end_src
 
 Hydra keybindings ([[https://github.com/svaante/dape/wiki#ergonomic-keybindings][Home · svaante/dape Wiki · GitHub]]):
