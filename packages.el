@@ -49,3 +49,4 @@
 (package! rainbow-delimiters)
 (package! forge)
 (package! orgit)
+(package! hurl-mode :recipe (:host github :repo "JasZhe/hurl-mode" :branch "main")
