@@ -7,6 +7,9 @@
 (package! browse-at-remote
   :recipe (:host github :repo "thisago/browse-at-remote" :files ("*.el"))
   :pin "afa61c635bf1c5b6554c4e7e685fb8e0551b97e8")
+(unpin! code-review)
+(package! code-review
+  :recipe (:host github :repo "phelrine/code-review" :branch "fix/closql-update"))
 
 (package! git-auto-commit-mode)
 (package! dape)
@@ -49,4 +52,4 @@
 (package! rainbow-delimiters)
 (package! forge)
 (package! orgit)
-(package! hurl-mode :recipe (:host github :repo "JasZhe/hurl-mode" :branch "main")
+(package! hurl-mode :recipe (:host github :repo "JasZhe/hurl-mode" :branch "main"))
