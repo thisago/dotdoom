@@ -136,8 +136,8 @@ Enable Org logging options
  org-log-note-clock-out t
  ;; Aggregate all logs into a drawer
  org-log-into-drawer t
- ;; Write the notes in ascending order
- org-log-states-order-reversed nil)
+ ;; Write the notes in descending order (default)
+ org-log-states-order-reversed t)
 #+end_src
 
 ** Roam
