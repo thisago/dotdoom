@@ -643,7 +643,7 @@ Add =M-RET= keybind to open the diff point at cursor in a new window.
   :config
   (setq
    magit-delta-default-dark-theme "gruvbox-dark"
-   magit-delta-default-light-theme "Github"
+   magit-delta-default-light-theme "GitHub"
    magit-delta-hide-plus-minus-markers nil)
   (magit-delta-mode))
 #+end_src
