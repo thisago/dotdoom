@@ -775,6 +775,5 @@ Setup mu4e with =msmtp= for sending and =offlineimap= for fetching.
 
 * Kubernetes
 #+begin_src emacs-lisp
-(after! kubernetes
-  (general-evil-define-key 'normal 'global-map :prefix "SPC" "k k" 'kubernetes-overview))
+(general-evil-define-key 'normal 'global-map :prefix "SPC" "k k" 'kubernetes-overview)
 #+end_src
