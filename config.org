@@ -773,29 +773,6 @@ Setup mu4e with =msmtp= for sending and =offlineimap= for fetching.
 #+end_src
 
 
-* LLM
-** Copilot
-#+begin_src emacs-lisp
-(when (string= (getenv "EMACS_ENABLE_COPILOT") "true")
-  (use-package! copilot
-    :hook (prog-mode . copilot-mode)
-    :bind (("C-c M-f" . copilot-complete)
-           :map copilot-completion-map
-           ("C-g"        . 'copilot-clear-overlay)
-           ("M-p"        . 'copilot-previous-completion)
-           ("M-n"        . 'copilot-next-completion)
-           ("<tab>"      . 'copilot-accept-completion)
-           ("TAB"        . 'copilot-accept-completion)
-           ("M-f"        . 'copilot-accept-completion-by-word)
-           ("M-<return>" . 'copilot-accept-completion-by-line))
-
-    :config
-    (add-to-list 'copilot-indentation-alist '(prog-mode 2))
-    (add-to-list 'copilot-indentation-alist '(org-mode 2))
-    (add-to-list 'copilot-indentation-alist '(text-mode 2))))
-#+end_src
-
-
 * Kubernetes
 #+begin_src emacs-lisp
 (after! kubernetes
