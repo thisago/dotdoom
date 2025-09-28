@@ -7,9 +7,6 @@
 (package! browse-at-remote
   :recipe (:host github :repo "thisago/browse-at-remote" :files ("*.el"))
   :pin "afa61c635bf1c5b6554c4e7e685fb8e0551b97e8")
-(unpin! code-review)
-(package! code-review
-  :recipe (:host github :repo "phelrine/code-review" :branch "fix/closql-update"))
 
 (package! git-auto-commit-mode)
 (package! dape)
@@ -18,8 +15,6 @@
 (package! lorem-ipsum)
 (package! rainbow-mode)
 
-(package! copilot
-  :recipe (:host github :repo "copilot-emacs/copilot.el" :files ("*.el")))
 (package! emacs-slack
   :recipe (:host github :repo "emacs-slack/emacs-slack" :files ("*.el")))
 (package! ts)
@@ -35,8 +30,6 @@
 (package! org-auto-tangle)
 (package! nerd-icons-corfu)
 (package! just-mode)
-(package! ellama)
-(package! hyperbole)
 (package! focus)
 (package! literate-calc-mode)
 (package! dimmer)
