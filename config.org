@@ -489,7 +489,7 @@ Enable on YAML mode
     "Read filename at project root, defaulting to current buffer. Return vector of vitest args to run said file"
     (let ((file (dape-buffer-default)))
       (if file
-          `["--no-coverage" ,file]
+          `["--no-coverage", file]
         (user-error "No file found"))))
 
   (defun dape-vitest/ensure (config)
@@ -648,15 +648,6 @@ Add =M-RET= keybind to open the diff point at cursor in a new window.
   (magit-delta-mode))
 #+end_src
 
-** Forge
-#+begin_src emacs-lisp
-(after! forge
-  (push `(,(getenv "EMACS_VF_HOST")                     ; GITHOST
-          ,(concat (getenv "EMACS_VF_HOST") "/api/v1")  ; APIHOST
-          ,(getenv "EMACS_VF_HOST")                     ; WEBHOST and INSTANCE-ID
-          forge-gitea-repository)                       ; CLASS
-        forge-alist))
-#+end_src
 
 * LSP
 Keybinds:
