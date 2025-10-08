@@ -17,10 +17,9 @@ Line Numbers
 (setq display-line-numbers-type 'relative)
 #+end_src
 
-Column Indicator
-An visual indicator to avoid lengthy lines
+Enable visual vertical indicator to avoid lengthy lines (default 80 chars from start)
 #+begin_src emacs-lisp
-(setq display-fill-column-indicator t)
+(global-display-fill-column-indicator-mode t)
 #+end_src
 
 Focus Mode
