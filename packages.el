@@ -46,3 +46,10 @@
 (package! forge)
 (package! orgit)
 (package! hurl-mode :recipe (:host github :repo "JasZhe/hurl-mode" :branch "main"))
+
+(package! eask-mode :recipe (:host github :repo "emacs-eask/eask-mode" :branch "master"))
+(package! msgu :recipe (:host github :repo "jcs-elpa/msgu" :branch "master"))
+(package! ellsp :recipe (:host github :repo "elisp-lsp/ellsp" :branch "master"))
+
+(package! ob-mongosh
+  :recipe (:host github :repo "thisago/ob-mongosh" :files ("*.el")))
