@@ -3,6 +3,9 @@
 
 ;; TODO: Tangle from Org config.org file
 
+;; https://github.com/doomemacs/doomemacs/commit/5a9a2f4e18c2952d9d10b46dcb52fcde97b2521d
+(setq lsp-use-plists nil)
+
 (unpin! browse-at-remote)
 (package! browse-at-remote
   :recipe (:host github :repo "thisago/browse-at-remote" :files ("*.el"))
