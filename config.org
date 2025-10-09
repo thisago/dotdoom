@@ -17,9 +17,15 @@ Line Numbers
 (setq display-line-numbers-type 'relative)
 #+end_src
 
-Enable visual vertical indicator to avoid lengthy lines (default 80 chars from start)
+Enable visual vertical indicator to avoid lengthy lines (default src_emacs-lisp[:exports results]{(print fill-column)} {{{results(=80=)}}} chars from start)
 #+begin_src emacs-lisp
 (global-display-fill-column-indicator-mode t)
+#+end_src
+And set the column to 50 when in Magit's commit message buffer:
+#+begin_src emacs-lisp
+(add-hook 'git-commit-mode-hook
+          (lambda ()
+            (setq-local display-fill-column-indicator-column 50)))
 #+end_src
 
 Focus Mode
