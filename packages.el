@@ -55,4 +55,5 @@
 (package! ellsp :recipe (:host github :repo "elisp-lsp/ellsp" :branch "master"))
 
 (package! ob-mongosh
-  :recipe (:host github :repo "thisago/ob-mongosh" :files ("*.el")))
+  :recipe (:host github :repo "thisago/ob-mongosh" :files ("*.el"))
+  :pin "8a6b3b22354643e5da3482e3bafb4256483e1bd6")
