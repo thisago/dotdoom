@@ -361,6 +361,11 @@ Enable =phscroll=
   (require 'org-transclusion-http))
 #+end_src
 
+** Async
+#+begin_src emacs-lisp
+(require 'ob-async)
+#+end_src
+
 
 * Auth Source
 #+begin_src emacs-lisp
