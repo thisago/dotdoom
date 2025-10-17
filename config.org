@@ -427,6 +427,11 @@ Override the =C-i= on ~org-mode~, which is calling ~org-cycle~.
 (global-set-key (kbd "C-i") #'better-jumper-jump-forward)
 #+end_src
 
+** Windows
+#+begin_src emacs-lisp
+(general-evil-define-key 'normal 'global :prefix "SPC" "W" 'ace-window)
+#+end_src
+
 
 * Fold
 #+begin_src emacs-lisp
